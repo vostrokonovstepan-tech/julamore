@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "julamore-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "RangeHTTPServer", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "speedcubing-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/Users/user/Downloads/888' && node node_modules/next/dist/bin/next dev -p 3000"],
+      "port": 3000
+    },
+    {
+      "name": "nfc-tagify-dev",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/Users/user/Downloads/nfc-tagify' && node node_modules/next/dist/bin/next dev -p 3010"],
+      "port": 3010
+    }
+  ]
+}
