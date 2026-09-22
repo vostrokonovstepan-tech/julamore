@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /server/
+Disallow: /projects.html
+Disallow: /leads.html
+
+# ЗАМЕНИТЬ julamore.ru на настоящий домен
+Sitemap: https://julamore.ru/sitemap.xml

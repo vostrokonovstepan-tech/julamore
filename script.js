@@ -87,7 +87,7 @@ function splitIntoWords(el){
     el.innerHTML = words.map((w, i) => `<span class="word-reveal" style="--i:${i}">${w}</span>`).join(' ');
     el.classList.add('text-split');
 }
-document.querySelectorAll('.section-heading, .about-hero h1').forEach(splitIntoWords);
+document.querySelectorAll('.section-heading, .hero-caption h1').forEach(splitIntoWords);
 
 const revealItems = document.querySelectorAll('.reveal, .text-split');
 if (revealItems.length){
@@ -98,76 +98,346 @@ if (revealItems.length){
                 io.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
     revealItems.forEach(el => io.observe(el));
+
+    // Safety net: never let content stay stuck invisible if the observer
+    // somehow misses an element (fast scroll, odd browser behaviour, etc.)
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            revealItems.forEach(el => {
+                const r = el.getBoundingClientRect();
+                if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-visible');
+            });
+        }, 1200);
+    });
+}
+
+/* =========================================================
+   FAQ accordion — each question opens/closes independently
+   ========================================================= */
+document.querySelectorAll('.faq-item').forEach(item => {
+    const question = item.querySelector('.faq-question');
+    if (!question) return;
+    question.addEventListener('click', () => {
+        const isOpen = item.classList.toggle('open');
+        question.setAttribute('aria-expanded', String(isOpen));
+    });
+});
+
+if (location.hash === '#interview') {
+    const target = document.getElementById('interview');
+    const item = target?.closest('.faq-item');
+    if (item && !item.classList.contains('open')) item.querySelector('.faq-question')?.click();
+    setTimeout(() => target?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 650);
+}
+
+/* =========================================================
+   Photo zoom — any [data-zoom] button opens its image big;
+   arrows walk through the other photos of the same group
+   ========================================================= */
+const photoLightbox = document.getElementById('photoLightbox');
+const photoLightboxImage = document.getElementById('photoLightboxImage');
+
+if (photoLightbox && photoLightboxImage){
+    let photoGroup = [];
+    let photoIndex = 0;
+
+    function showPhoto(){
+        const img = photoGroup[photoIndex].querySelector('img');
+        photoLightboxImage.src = img.currentSrc || img.src;
+        photoLightboxImage.alt = img.alt;
+    }
+    function stepPhoto(delta){
+        photoIndex = (photoIndex + delta + photoGroup.length) % photoGroup.length;
+        showPhoto();
+    }
+    function closePhoto(){ photoLightbox.classList.remove('active'); }
+
+    document.querySelectorAll('[data-zoom]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            photoGroup = [...document.querySelectorAll(`[data-zoom="${btn.dataset.zoom}"]`)];
+            photoIndex = photoGroup.indexOf(btn);
+            showPhoto();
+            photoLightbox.classList.add('active');
+        });
+    });
+    document.getElementById('photoLightboxClose')?.addEventListener('click', closePhoto);
+    document.getElementById('photoLightboxPrev')?.addEventListener('click', () => stepPhoto(-1));
+    document.getElementById('photoLightboxNext')?.addEventListener('click', () => stepPhoto(1));
+    photoLightbox.addEventListener('click', (e) => { if (e.target === photoLightbox) closePhoto(); });
+    document.addEventListener('keydown', (e) => {
+        if (!photoLightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closePhoto();
+        if (e.key === 'ArrowLeft') stepPhoto(-1);
+        if (e.key === 'ArrowRight') stepPhoto(1);
+    });
+}
+
+/* =========================================================
+   Video interviews — the small preview opens a big player with
+   our own fullscreen button (works even if the embedded player's
+   own fullscreen button is blocked)
+   ========================================================= */
+const videoLightbox = document.getElementById('videoLightbox');
+const videoLightboxFrame = document.getElementById('videoLightboxFrame');
+const videoLightboxFs = document.getElementById('videoLightboxFs');
+const videoLightboxClose = document.getElementById('videoLightboxClose');
+
+if (videoLightbox && videoLightboxFrame){
+    function openVideo(src){
+        let player;
+        videoStage.style.removeProperty('--ar');
+        if (/\.(mp4|webm|mov)(#|\?|$)/i.test(src)) {
+            // our own video file: plain <video>, sized to its real proportions (phone videos are vertical)
+            player = document.createElement('video');
+            player.src = src;
+            player.controls = true;
+            player.autoplay = true;
+            player.playsInline = true;
+            player.addEventListener('loadedmetadata', () => {
+                if (player.videoWidth && player.videoHeight) {
+                    videoStage.style.setProperty('--ar', player.videoWidth / player.videoHeight);
+                }
+            });
+        } else {
+            player = document.createElement('iframe');
+            player.src = src;
+            player.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write; screen-wake-lock';
+            player.allowFullscreen = true;
+            player.title = 'Видео';
+        }
+        videoLightboxFrame.replaceChildren(player);
+        videoLightbox.classList.add('active');
+    }
+    const videoStage = videoLightboxFrame.parentElement;
+
+    // Fallback when the browser refuses real fullscreen (some embedded
+    // browsers do): stretch the player over the whole window instead.
+    function setExpanded(on){
+        videoStage.classList.toggle('is-expanded', on);
+        if (videoLightboxFs) videoLightboxFs.textContent = on ? 'Свернуть' : 'На весь экран';
+    }
+
+    function closeVideo(){
+        if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+        setExpanded(false);
+        videoLightbox.classList.remove('active');
+        // drop the iframe once faded out so playback actually stops
+        setTimeout(() => {
+            if (!videoLightbox.classList.contains('active')) videoLightboxFrame.replaceChildren();
+        }, 350);
+    }
+
+    document.querySelectorAll('[data-video-src]').forEach(btn => {
+        btn.addEventListener('click', () => openVideo(btn.dataset.videoSrc));
+    });
+    videoLightboxFs?.addEventListener('click', () => {
+        if (videoStage.classList.contains('is-expanded')) { setExpanded(false); return; }
+        const el = videoLightboxFrame;
+        const request = el.requestFullscreen || el.webkitRequestFullscreen;
+        if (!request) { setExpanded(true); return; }
+        try {
+            const result = request.call(el);
+            if (result && result.catch) result.catch(() => setExpanded(true));
+        } catch (err) {
+            setExpanded(true);
+        }
+        // some browsers neither grant nor refuse — don't leave the visitor waiting
+        setTimeout(() => {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) setExpanded(true);
+        }, 500);
+    });
+    videoLightboxClose?.addEventListener('click', closeVideo);
+    videoLightbox.addEventListener('click', (e) => { if (e.target === videoLightbox) closeVideo(); });
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !videoLightbox.classList.contains('active') || document.fullscreenElement) return;
+        if (videoStage.classList.contains('is-expanded')) setExpanded(false);
+        else closeVideo();
+    });
 }
 
 /* =========================================================
    Projects data + split slider
+   Each project's photos live in the site folder, e.g. projects/dom-1/.
+   Fill one object per house:
+   { area: "145 кв.м", dimensions: "11 х 13 м", location: "Нижний Новгород", date: "14.05.2024",
+     imgBefore: "projects/dom-1/before.jpg", imgAfter: "projects/dom-1/after.jpg",
+     gallery: ["projects/dom-1/1.jpg", "projects/dom-1/2.jpg"],
+     description: "…" }
    ========================================================= */
-function unsplashUrl(id, width) {
-    return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&q=80`;
-}
-
-const galleryPool = [
-    "1600585154340-be6161a56a0c", "1600596542815-ffad4c1539a9", "1600607687939-ce8a6c25118c",
-    "1600566753376-12c8ab7fb75b", "1613490493576-7fde63acd811", "1512917774080-9991f1c4c750",
-    "1600573472591-ee6b68d14c68", "1600210492486-724fe5c67fb0", "1580587771525-78b9dba3b914",
-    "1542314831-068cd1dbfeeb", "1513694203232-719a280e022f", "1486406146926-c627a92ad1ab",
-    "1497366216548-37526070297c", "1497366811353-6870744d04b2", "1504297050568-910d24c426d3",
-    "1512915922686-57c11dde9b6b"
-];
-function galleryFor(offset) {
-    return Array.from({ length: 5 }, (_, i) => galleryPool[(offset + i) % galleryPool.length]);
-}
-
 const projectsData = [
-    { area: "145 кв.м", dimensions: "11 х 13 м", location: "Подмосковье", date: "14.05.2024",
-      imgBefore: unsplashUrl("1600585154340-be6161a56a0c", 1000), imgAfter: unsplashUrl("1600596542815-ffad4c1539a9", 1000),
-      gallery: galleryFor(0),
-      description: "Двухэтажный дом на лесном участке под Москвой: тёмный вентилируемый фасад, панорамное остекление гостиной и терраса, вписанная между соснами без единой вырубки." },
-    { area: "280 кв.м", dimensions: "16 х 18 м", location: "Сочи", date: "22.09.2024",
-      imgBefore: unsplashUrl("1600607687939-ce8a6c25118c", 1000), imgAfter: unsplashUrl("1600566753376-12c8ab7fb75b", 1000),
-      gallery: galleryFor(3),
-      description: "Вилла на склоне с видом на море: светлый известняк, три уровня террас и бассейн, спускающийся к нижней границе участка." },
-    { area: "190 кв.м", dimensions: "12 х 15 м", location: "Ленобласть", date: "05.11.2024",
-      imgBefore: unsplashUrl("1613490493576-7fde63acd811", 1000), imgAfter: unsplashUrl("1512917774080-9991f1c4c750", 1000),
-      gallery: galleryFor(6),
-      description: "Семейный дом у озера: деревянный фасад, большие окна в сторону воды и открытая планировка первого этажа для четырёх поколений семьи." },
-    { area: "320 кв.м", dimensions: "21 х 17 м", location: "Казань", date: "18.01.2025",
-      imgBefore: unsplashUrl("1600573472591-ee6b68d14c68", 1000), imgAfter: unsplashUrl("1600210492486-724fe5c67fb0", 1000),
-      gallery: galleryFor(9),
-      description: "Дом для большой семьи с двумя жилыми крыльями вокруг внутреннего двора — отдельный вход и терраса для старшего поколения." },
-    { area: "98 кв.м", dimensions: "8 х 11 м", location: "Тверь", date: "30.04.2025",
-      imgBefore: unsplashUrl("1580587771525-78b9dba3b914", 1000), imgAfter: unsplashUrl("1542314831-068cd1dbfeeb", 1000),
-      gallery: galleryFor(12),
-      description: "Компактный дом для молодой семьи с продуманной до сантиметра планировкой — каждый квадратный метр работает на бюджет и на комфорт." },
-    { area: "450 кв.м", dimensions: "24 х 22 м", location: "Екатеринбург", date: "12.07.2025",
-      imgBefore: unsplashUrl("1513694203232-719a280e022f", 1000), imgAfter: unsplashUrl("1486406146926-c627a92ad1ab", 1000),
-      gallery: galleryFor(15),
-      description: "Загородная резиденция со спа-зоной, гостевым флигелем и гаражом на четыре машины — проект с расчётом на приём больших компаний." },
-    { area: "165 кв.м", dimensions: "11 х 14 м", location: "Новосибирск", date: "02.10.2025",
-      imgBefore: unsplashUrl("1497366216548-37526070297c", 1000), imgAfter: unsplashUrl("1497366811353-6870744d04b2", 1000),
-      gallery: galleryFor(2),
-      description: "Дом, спроектированный под суровую сибирскую зиму: усиленное утепление, тёплый тамбур и тёплые натуральные материалы внутри." },
-    { area: "215 кв.м", dimensions: "13 х 16 м", location: "Краснодар", date: "15.12.2025",
-      imgBefore: unsplashUrl("1504297050568-910d24c426d3", 1000), imgAfter: unsplashUrl("1486406146926-c627a92ad1ab", 1000),
-      gallery: galleryFor(5),
-      description: "Южный дом с крытой террасой во весь фасад и кухней, развёрнутой к саду — планировка под тёплый климат и жизнь на улице." },
-    { area: "260 кв.м", dimensions: "15 х 15 м", location: "Владивосток", date: "26.03.2026",
-      imgBefore: unsplashUrl("1512915922686-57c11dde9b6b", 1000), imgAfter: unsplashUrl("1512917774080-9991f1c4c750", 1000),
-      gallery: galleryFor(8),
-      description: "Дом на склоне сопки в несколько уровней: каждая терраса открывает свой вид на бухту, а гараж встроен в цокольный этаж." },
-    { area: "520 кв.м", dimensions: "26 х 25 м", location: "Алтай", date: "11.06.2026",
-      imgBefore: unsplashUrl("1600585154340-be6161a56a0c", 1000), imgAfter: unsplashUrl("1600596542815-ffad4c1539a9", 1000),
-      gallery: galleryFor(11),
-      description: "Горная резиденция из камня и клеёного бруса с панорамными окнами на хребет — дом, который проектировался вокруг вида, а не наоборот." }
+    { title: "Дом на склоне в Михальчиково",
+      area: "—", dimensions: "—", location: "Нижегородская область", date: "—",
+      imgBefore: "projects/dom-4/render-1.jpg", imgAfter: "projects/dom-4/photo-1.jpg",
+      gallery: ["projects/dom-4/photo-1.jpg", "projects/dom-4/photo-2.jpg", "projects/dom-4/photo-3.jpg",
+                "projects/dom-4/render-1.jpg"],
+      description: `Заказчик долго искал своего проектировщика: когда он пришёл к нам, у него на руках было уже три проекта от разных архитекторов. Строить свой дом он решил именно по нашему проекту — и на фотографиях видно, что дом реализован.
+
+Дом построен в Нижегородской области, в Михальчиково, на участке со склоном. Со стороны дороги он смотрится одноэтажным, а со стороны реки — двухэтажным.
+
+Нижняя, цокольная часть выполнена из железобетона, верхняя — из газосиликатного блока. Дом получился по-настоящему интересным, со своим характером.` },
+    { title: "Классика в Подмосковье",
+      area: "—", dimensions: "—", location: "Московская область", date: "—",
+      // before = the project render, after = the finished house
+      imgBefore: "projects/dom-2/render-1.jpg", imgAfter: "projects/dom-2/photo-1.jpg",
+      fitAfter: "contain",
+      gallery: ["projects/dom-2/photo-1.jpg", "projects/dom-2/render-1.jpg", "projects/dom-2/render-2.jpg"],
+      description: `Дом в классическом стиле. Мы захотели показать его вам, потому что с такими запросами к нам обращаются очень редко.
+
+Сравните проект и уже построенный дом: даже если сыграть в игру «найди 10 отличий», вы практически не найдёте ни одного.
+
+Дом очень «кудрявый», с арками — классика в чистом виде. Множество деталей сразу привлекает к себе внимание.
+
+Дом построен в Московской области и спроектирован под запрос заказчиков — людей в возрасте, которым близка вся эта история с романтизмом: барокко, рококо… В итоге получился по-настоящему нарядный дом.` },
+    { title: "Дом для тех, кто любит горы",
+      area: "—", dimensions: "—", location: "Нижегородская область", date: "—",
+      imgBefore: "projects/dom-3/render-1.jpg", imgAfter: "projects/dom-3/photo-1.jpg",
+      gallery: ["projects/dom-3/photo-1.jpg", "projects/dom-3/photo-2.jpg", "projects/dom-3/photo-3.jpg",
+                "projects/dom-3/photo-4.jpg", "projects/dom-3/render-1.jpg", "projects/dom-3/render-2.jpg"],
+      description: `Заказчики — очень подвижные люди, которые любят ходить в горы. Им нужен был максимально уютный дом, но такой, чтобы на фасаде были натуральные материалы, напоминающие о любимых местах и горах.
+
+Дом построен в ТИЗ «Надежда» Нижегородской области. Он максимально уютный, с простой и понятной планировкой. Внутреннюю отделку заказчики делали сами — и тем самым ещё больше прониклись своим домом и создали уют в своём гнёздышке.
+
+Дом выполнен из газосиликатного блока, кровля — мягкая черепица. Фасад отделан штукатуркой и плиткой под натуральный камень.` },
+    { title: "Хай-тек с консолью на Новопокровской",
+      area: "—", dimensions: "—", location: "Нижний Новгород", date: "—",
+      imgBefore: "projects/dom-1/render-1.jpg", imgAfter: "projects/dom-1/render-2.jpg",
+      gallery: ["projects/dom-1/render-1.jpg", "projects/dom-1/render-2.jpg"],
+      // paragraphs are separated by an empty line
+      description: `Дом в современном стиле хай-тек в Нижнем Новгороде, на Новопокровской. Заказчик хотел построить дом не такой, как у всех, и доверил нам прежде всего не внешний вид, а конструктивные особенности.
+
+Дом решён в двух объёмах: первый этаж сильно смещён относительно второго, и второй этаж выносится консолью длиной 3 метра. Это решение приняли исходя из общей площади дома и возможных конструктивных решений по выносу второго этажа.
+
+Высота первого этажа — 4 метра, второго — 3,2 метра. Благодаря этому получились очень высокие окна и большое внутреннее пространство — ощущение свободы, лёгкости и «много места». Этого мы и добивались. Объёмно-планировочное и дизайнерское решения разрабатывались сразу вместе.
+
+Несущие стены выполнены из силикатного кирпича, перекрытие и покрытие — монолитные. Фасад отделан керамогранитом, рейкой и кликфальцем — материалы прекрасно сочетаются друг с другом.
+
+Особая история этого дома: заказчик строит дома премиум-класса на продажу. Сначала он сам живёт в доме, понимает, что удобно, а что нет, вносит коррективы — и только потом находит дому хозяина. Испробовать всё на себе, довести до совершенства и передать в другие руки.` },
+    { title: "Дом с бассейном у Бурцево",
+      area: "—", dimensions: "—", location: "Нижегородская область", date: "—",
+      imgBefore: "projects/dom-5/render-1.jpg", imgAfter: "projects/dom-5/photo-1.jpg",
+      fitBefore: "contain",
+      gallery: ["projects/dom-5/photo-1.jpg", "projects/dom-5/photo-4.jpg", "projects/dom-5/photo-5.jpg",
+                "projects/dom-5/photo-2.jpg", "projects/dom-5/photo-3.jpg", "projects/dom-5/render-1.jpg"],
+      description: `Дом построен в Нижегородской области, рядом с деревней Бурцево. Этот проект был очень интересным: заказчица прорабатывала его вместе с нами очень дотошно — до каждого миллиметра, замечая в проекте любые изменения.
+
+Благодаря её щепетильности и нашему индивидуальному подходу к каждому заказчику дом приобрёл такой симпатичный вид.
+
+В доме есть бассейн, спортивный зал и много других помещений, которых нет в домах со стандартным набором комнат.` },
+    { title: "Дом, с которого началась улица",
+      area: "—", dimensions: "—", location: "Нижегородская область", date: "—",
+      imgBefore: "projects/dom-6/render-1.jpg", imgAfter: "projects/dom-6/photo-1.jpg",
+      fitAfter: "contain", posAfter: "right center",
+      gallery: ["projects/dom-6/photo-1.jpg", "projects/dom-6/photo-winter.jpg", "projects/dom-6/render-1.jpg"],
+      description: `Дом построен в деревне Скипино Нижегородской области. Заказчик пришёл с запросом построить красивый дом в местности, которая только начинала застраиваться: вокруг — деревенька с простыми деревенскими домами.
+
+После него к нам пришли все его друзья и соседи — это ещё пять проектов на соседних участках.
+
+Благодарим за доверие всех, кто к нам приходит!` },
+    { title: "Дом из нашего интервью",
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/dom-7/render-1.jpg", imgAfter: "projects/dom-7/photo-3.jpg",
+      gallery: ["projects/dom-7/photo-1.jpg", "projects/dom-7/photo-2.jpg", "projects/dom-7/photo-3.jpg",
+                "projects/dom-7/video-1.mp4", "projects/dom-7/render-1.jpg"],
+      description: `Об этом доме Юлия подробно рассказывает во втором видеоинтервью — как рождался проект и каким получился дом.`,
+      link: { href: "about.html#interview", text: "Смотреть интервью" } },
+    { title: "Высокий цоколь в Буревестнике",
+      area: "—", dimensions: "—", location: "Буревестник", date: "—",
+      imgBefore: "projects/dom-8/render-1.jpg", imgAfter: "projects/dom-8/photo-1.jpg",
+      fitBefore: "contain", fitAfter: "contain",
+      gallery: ["projects/dom-8/photo-1.jpg", "projects/dom-8/photo-2.jpg", "projects/dom-8/render-1.jpg"],
+      description: `Этот дом мы показываем, чтобы было видно: мы проектируем и строим самые разные дома.
+
+Основной запрос заказчицы звучал так: «Я никогда не жила в частном доме — всегда на высоких этажах. Поэтому мне важно, чтобы в окна я не видела проходящих мимо людей».
+
+Поэтому в этом доме мы сделали высокий цоколь: 8 ступенек крыльца и ещё 900 мм от пола до окон. Даже самый высокий человек, проходящий мимо дома, не будет заметен.
+
+Для нас важны не только комфорт и уют наших заказчиков, но и их спокойствие.` },
+    { title: "Дом на две семьи в Балахне",
+      area: "—", dimensions: "—", location: "Балахна", date: "—",
+      imgBefore: "projects/dom-balakhna/render-1.jpg", imgAfter: "projects/dom-balakhna/photo-1.jpg",
+      gallery: ["projects/dom-balakhna/photo-1.jpg", "projects/dom-balakhna/render-1.jpg"],
+      description: `Дом построен в Балахне, Нижегородская область. Изначально он задумывался с лёгким намёком на восточный стиль — об этом говорят входная группа, круглое окошко и арочные проёмы.
+
+Главная история этого дома — он на две семьи: для мамы и семьи сына. У них совершенно разные предпочтения и разный вкус, но нам удалось объединить в одном доме пожелания каждого.
+
+Дом строился на потенциально подтопляемой территории, поэтому стоит на возвышенности — её мы сделали специально на случай, если наша большая река Волга выйдет из берегов.` },
+    { title: "Дом с плоской кровлей в «Надежде»",
+      area: "—", dimensions: "—", location: "ТИЗ «Надежда»", date: "—",
+      imgBefore: "projects/dom-nadezhda/render-1.jpg", imgAfter: "projects/dom-nadezhda/photo-1.jpg",
+      fitAfter: "contain",
+      gallery: ["projects/dom-nadezhda/photo-1.jpg", "projects/dom-nadezhda/photo-2.jpg",
+                "projects/dom-nadezhda/render-1.jpg", "projects/dom-nadezhda/render-2.jpg"],
+      description: `Один из первых домов в нашей истории. Заказчики пришли и сказали, что хотят дом с плоскими кровлями, — для того времени это было началом начал: до этого все хотели многоскатные и двускатные крыши. Поэтому для нас это был своего рода пробный вариант.
+
+В итоге всё получилось так, как задумано. Особенно интересным вышел балкон — его хорошо видно и на фото, и на 3D-модели. Мы решили все задачи с водоотведением, участвовали в каждом этапе стройки и вели авторский надзор.
+
+Заказчики вернулись к нам за проектом бани и привели с собой нескольких друзей — для них мы тоже выполнили интересные проекты.` },
+
+    /* ---------- Реконструкции ---------- */
+    { title: "Вторая жизнь дома с башней",
+      category: "reconstruction",
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/rekon-1/before-4.jpg", imgAfter: "projects/rekon-1/after-3.jpg",
+      gallery: ["projects/rekon-1/after-3.jpg", "projects/rekon-1/after-2.jpg", "projects/rekon-1/after-4.jpg",
+                "projects/rekon-1/after-1.jpg", "projects/rekon-1/before-4.jpg", "projects/rekon-1/before-1.jpg",
+                "projects/rekon-1/before-2.jpg", "projects/rekon-1/before-3.jpg"],
+      description: `Реконструкция жилого дома: каким он был — и каким стал.` },
+    { title: "Реконструкция дома с эркером",
+      category: "reconstruction",
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/rekon-2/before-1.jpg", imgAfter: "projects/rekon-2/render-1.jpg",
+      gallery: ["projects/rekon-2/render-1.jpg", "projects/rekon-2/render-2.jpg",
+                "projects/rekon-2/before-1.jpg", "projects/rekon-2/before-2.jpg"],
+      description: `Проект реконструкции жилого дома: каким дом был — и каким он станет.` },
+    { title: "Дом в фальцевом фасаде",
+      category: "reconstruction",
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/rekon-3/stage-1.jpg", imgAfter: "projects/rekon-3/stage-2.jpg",
+      gallery: ["projects/rekon-3/stage-1.jpg", "projects/rekon-3/stage-2.jpg"],
+      description: `Работа на объекте: кирпичные стены и стропильная система — и тот же дом уже в фальцевом фасаде.` },
+    // both photos are just stages of work, so the before/after labels are hidden
+    { title: "Дом над Волгой",
+      category: "reconstruction", noTags: true,
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/rekon-4/stage-1.jpg", imgAfter: "projects/rekon-4/stage-2.jpg",
+      fitAfter: "contain",
+      gallery: ["projects/rekon-4/stage-1.jpg", "projects/rekon-4/stage-2.jpg"],
+      description: `Работа на объекте: дом на склоне с видом на Волгу.` },
+    { title: "Дом из бревна",
+      category: "reconstruction", noTags: true,
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/rekon-5/stage-1.jpg", imgAfter: "projects/rekon-5/stage-2.jpg",
+      gallery: ["projects/rekon-5/stage-1.jpg", "projects/rekon-5/stage-2.jpg"],
+      description: `Работа на объекте: дом из бревна.` },
+    { title: "Реконструкция помещений",
+      category: "reconstruction", noTags: true,
+      area: "—", dimensions: "—", location: "—", date: "—",
+      // the main material here is the video itself
+      video: "projects/rekon-6/video-1.mp4",
+      // frames taken from the video — the object has no separate photos
+      imgBefore: "projects/rekon-6/frame-1.jpg", imgAfter: "projects/rekon-6/frame-2.jpg",
+      fitBefore: "contain", fitAfter: "contain", posBefore: "22% center", posAfter: "78% center",
+      gallery: ["projects/rekon-6/video-1.mp4", "projects/rekon-6/frame-1.jpg", "projects/rekon-6/frame-2.jpg"],
+      description: `Реконструкция помещений, усиление перекрытий.` },
+
+    /* ---------- Промышленные здания ---------- */
+    { title: "Промышленный комплекс",
+      category: "industrial", noTags: true,
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/prom-1/photo-3.jpg", imgAfter: "projects/prom-1/photo-2.jpg",
+      gallery: ["projects/prom-1/photo-3.jpg", "projects/prom-1/photo-2.jpg",
+                "projects/prom-1/photo-1.jpg", "projects/prom-1/photo-4.jpg"],
+      description: `Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.` }
 ];
 
 let currentProjectIndex = 0;
 const dotsContainer = document.getElementById('dotsContainer');
 
-if (dotsContainer) {
+if (dotsContainer && !projectsData.length) {
+    document.querySelector('.projects-page')?.classList.add('is-empty');
+} else if (dotsContainer) {
     const bgBefore = document.getElementById('bgBefore');
     const bgAfter = document.getElementById('bgAfter');
     const valArea = document.getElementById('valArea');
@@ -181,42 +451,71 @@ if (dotsContainer) {
     const galleryRow = document.getElementById('galleryRow');
     const galleryDescription = document.getElementById('galleryDescription');
 
-    const thumbObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting){
-                entry.target.classList.add('is-visible');
-                thumbObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-
     function renderGallery(project) {
         if (!galleryRow) return;
         galleryRow.innerHTML = '';
-        project.gallery.forEach((photoId, i) => {
+        project.gallery.forEach((photoSrc, i) => {
             const thumb = document.createElement('div');
             thumb.className = 'gallery-thumb img-reveal';
-            thumb.style.transitionDelay = (i * 0.08) + 's';
-            const img = document.createElement('img');
-            img.src = unsplashUrl(photoId, 500);
-            img.alt = `Фото проекта — ${project.location}, ${i + 1}`;
-            img.loading = 'lazy';
-            thumb.appendChild(img);
+            thumb.style.animationDelay = (i * 0.08) + 's';
+            if (isVideoSrc(photoSrc)) {
+                thumb.classList.add('gallery-thumb-video');
+                const video = document.createElement('video');
+                video.src = photoSrc + '#t=0.5';
+                video.muted = true;
+                video.playsInline = true;
+                video.preload = 'metadata';
+                const play = document.createElement('span');
+                play.className = 'video-play';
+                thumb.append(video, play);
+            } else {
+                const img = document.createElement('img');
+                img.src = photoSrc;
+                img.alt = `${project.title || 'Проект Julamore'} — фото ${i + 1}`;
+                img.loading = 'lazy';
+                thumb.appendChild(img);
+            }
             thumb.addEventListener('click', () => openLightbox(project.gallery, i));
             galleryRow.appendChild(thumb);
-            thumbObserver.observe(thumb);
         });
-        if (galleryDescription) galleryDescription.textContent = project.description;
+        if (galleryDescription) {
+            galleryDescription.replaceChildren(...project.description.split(/\n\s*\n/).map(text => {
+                const para = document.createElement('p');
+                para.textContent = text.trim();
+                return para;
+            }));
+            if (project.link) {
+                const a = document.createElement('a');
+                a.className = 'gallery-link';
+                a.href = project.link.href;
+                a.textContent = project.link.text;
+                galleryDescription.appendChild(a);
+            }
+        }
     }
+
+    // two collections share one slider: new houses and reconstructions (category: "reconstruction")
+    const sliderWrapper = document.querySelector('.split-slider-wrapper');
+    let activeList = [];
 
     function updateProject(index) {
         currentProjectIndex = index;
-        const project = projectsData[index];
+        const project = activeList[index];
+        sliderWrapper?.classList.toggle('no-tags', !!project.noTags);
 
         [detailsOverlay, gallerySection].forEach(el => { if (el) el.style.opacity = 0; });
 
         bgBefore.style.backgroundImage = `url('${project.imgBefore}')`;
         bgAfter.style.backgroundImage = `url('${project.imgAfter}')`;
+        // optional per-photo framing, e.g. posAfter: "left center" when the house sits left in the shot
+        bgBefore.style.backgroundPosition = project.posBefore || '';
+        bgAfter.style.backgroundPosition = project.posAfter || '';
+        // small photos: show whole (not stretched) over a blurred copy of themselves
+        [[bgBefore, project.imgBefore, project.fitBefore], [bgAfter, project.imgAfter, project.fitAfter]].forEach(([el, src, fit]) => {
+            el.classList.toggle('photo-bg-contain', fit === 'contain');
+            el.style.setProperty('--img', `url('${src}')`);
+            el.style.setProperty('--pos', el === bgBefore ? (project.posBefore || 'center') : (project.posAfter || 'center'));
+        });
 
         document.querySelectorAll('.dot').forEach((dot, idx) => {
             dot.classList.toggle('active', idx === index);
@@ -232,34 +531,52 @@ if (dotsContainer) {
         }, 180);
     }
 
-    projectsData.forEach((_, idx) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        dot.textContent = idx + 1;
-        dot.addEventListener('click', () => updateProject(idx));
-        dotsContainer.appendChild(dot);
+    function showCategory(category) {
+        activeList = projectsData.filter(p => (p.category || 'new') === category);
+        document.querySelectorAll('.projects-tab').forEach(tab => {
+            const on = tab.dataset.category === category;
+            tab.classList.toggle('active', on);
+            tab.setAttribute('aria-selected', String(on));
+        });
+        dotsContainer.innerHTML = '';
+        activeList.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.textContent = idx + 1;
+            dot.addEventListener('click', () => updateProject(idx));
+            dotsContainer.appendChild(dot);
+        });
+        const empty = !activeList.length;
+        sliderWrapper?.classList.toggle('is-category-empty', empty);
+        if (gallerySection) gallerySection.hidden = empty;
+        if (!empty) updateProject(0);
+    }
+
+    document.querySelectorAll('.projects-tab').forEach(tab => {
+        tab.addEventListener('click', () => showCategory(tab.dataset.category));
     });
 
     if (prevBtn && nextBtn) {
         prevBtn.addEventListener('click', () => {
             let index = currentProjectIndex - 1;
-            if (index < 0) index = projectsData.length - 1;
+            if (index < 0) index = activeList.length - 1;
             updateProject(index);
         });
         nextBtn.addEventListener('click', () => {
             let index = currentProjectIndex + 1;
-            if (index >= projectsData.length) index = 0;
+            if (index >= activeList.length) index = 0;
             updateProject(index);
         });
     }
 
     document.addEventListener('keydown', (e) => {
-        if (lightbox?.classList.contains('active')) return;
+        if (lightbox?.classList.contains('active') || !activeList.length) return;
         if (e.key === 'ArrowLeft') prevBtn?.click();
         if (e.key === 'ArrowRight') nextBtn?.click();
     });
 
-    updateProject(0);
+    const hashCategory = location.hash.slice(1);
+    showCategory(['reconstruction', 'industrial'].includes(hashCategory) ? hashCategory : 'new');
 }
 
 /* =========================================================
@@ -273,10 +590,29 @@ const lightboxNext = document.getElementById('lightboxNext');
 let lightboxGallery = [];
 let lightboxIndex = 0;
 
+function isVideoSrc(src){ return /\.(mp4|webm|mov)$/i.test(src); }
+let lightboxVideo = null;
 function showLightboxImage() {
-    if (lightboxImage) lightboxImage.src = unsplashUrl(lightboxGallery[lightboxIndex], 1600);
+    const src = lightboxGallery[lightboxIndex];
+    lightboxVideo?.remove();
+    lightboxVideo = null;
+    if (isVideoSrc(src)) {
+        lightboxVideo = document.createElement('video');
+        lightboxVideo.className = 'lightbox-image lightbox-video';
+        lightboxVideo.src = src;
+        lightboxVideo.controls = true;
+        lightboxVideo.autoplay = true;
+        lightboxVideo.playsInline = true;
+        lightboxImage?.after(lightboxVideo);
+        if (lightboxImage) lightboxImage.hidden = true;
+    } else if (lightboxImage) {
+        lightboxImage.hidden = false;
+        lightboxImage.src = src;
+    }
 }
 function openLightbox(gallery, index) {
+    // a single photo or video needs no arrows
+    [lightboxPrev, lightboxNext].forEach(btn => { if (btn) btn.hidden = gallery.length < 2; });
     lightboxGallery = gallery;
     lightboxIndex = index;
     showLightboxImage();
@@ -284,8 +620,13 @@ function openLightbox(gallery, index) {
 }
 function closeLightbox() {
     lightbox?.classList.remove('active');
+    lightboxVideo?.pause();
 }
 lightboxClose?.addEventListener('click', closeLightbox);
+// "how a project looks" video: small preview, big player on click
+document.querySelectorAll('[data-album]').forEach(btn => {
+    btn.addEventListener('click', () => openLightbox([btn.dataset.album], 0));
+});
 lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 lightboxPrev?.addEventListener('click', () => {
     lightboxIndex = (lightboxIndex - 1 + lightboxGallery.length) % lightboxGallery.length;
@@ -321,7 +662,7 @@ function closeModal() {
     if (modal) modal.classList.remove('active');
 }
 
-[openModalHeader, openModalHero, openModalAbout, openModalFooter, openModalFloat].forEach(btn => {
+[openModalHeader, openModalHero, openModalAbout, openModalFooter, openModalFloat, ...document.querySelectorAll('[data-open-modal]')].forEach(btn => {
     if (btn) btn.addEventListener('click', openModal);
 });
 
@@ -351,12 +692,44 @@ if (leadForm) {
         const email = document.getElementById('email').value;
         const descriptionField = document.getElementById('projectDescription');
         const description = descriptionField ? (descriptionField.value || 'Не указано') : 'Не указано';
+        const consentBox = document.getElementById('leadConsent');
+        if (consentBox && !consentBox.checked) {
+            alert('Пожалуйста, подтвердите согласие на обработку персональных данных.');
+            return;
+        }
 
-        fetch('/api/send-lead', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ firstName, lastName, phone, email, description })
-        })
+        // block double clicks while the lead is on its way
+        const submitBtn = leadForm.querySelector('button[type="submit"]');
+        if (submitBtn?.disabled) return;
+        const submitText = submitBtn?.textContent;
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправляем…'; }
+
+        const lead = {
+            firstName, lastName, phone, email, description,
+            consent: !!consentBox?.checked,       // what the visitor agreed to, for our records
+            consentText: consentBox ? consentBox.closest('.form-consent')?.innerText.trim() : '',
+            page: location.pathname
+        };
+
+        // На GitHub Pages сервера нет: заявка сохраняется в этом же браузере,
+        // чтобы её можно было показать на странице /leads.html. На своём сервере
+        // этот код не работает — заявка уходит как обычно.
+        const send = window.JULAMORE_DEMO
+            ? Promise.resolve().then(() => {
+                const key = 'julamore-demo-leads';
+                let saved = [];
+                try { saved = JSON.parse(localStorage.getItem(key) || '[]'); } catch {}
+                saved.push({ time: new Date().toISOString(), demo: true, ...lead });
+                try { localStorage.setItem(key, JSON.stringify(saved.slice(-200))); } catch {}
+                return { ok: true, json: () => Promise.resolve({ ok: true, demo: true }) };
+            })
+            : fetch('/api/send-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(lead)
+            });
+
+        send
         .then(response => {
             if (!response.ok) throw new Error('Ошибка отправки заявки');
             return response.json();
@@ -378,6 +751,9 @@ if (leadForm) {
         .catch(error => {
             console.error(error);
             alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+        })
+        .finally(() => {
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitText; }
         });
     });
 }

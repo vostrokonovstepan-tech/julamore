@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
   const messageText = `
 🔔 *Новая заявка с сайта Julamore!*
-👤 *Имя:* ${firstName} ${lastName}
+👤 *ФИО:* ${lastName} ${firstName}
 📞 *Телефон:* ${phone}
 📧 *Почта:* ${email}
 📝 *Пожелания:* ${description || 'Не указано'}

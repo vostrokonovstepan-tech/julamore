@@ -3,26 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О компании — Julamore</title>
-    <meta name="description" content="Архитектура — это чертёж характера дома, а не только его стен. Знакомство со студией Julamore: философия, процесс работы, статистика.">
+    <title>Знакомство — Julamore</title>
+    <meta name="description" content="Архитектура — это чертёж характера дома, а не только его стен. Знакомство со студией Julamore: история компании, основатель, команда и партнёры.">
     <meta name="theme-color" content="#E29303">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="О компании — Julamore">
-    <meta property="og:description" content="Знакомство со студией Julamore: философия, процесс работы, статистика.">
+    <meta property="og:title" content="Знакомство — Julamore">
+    <meta property="og:description" content="Знакомство со студией Julamore: история компании, основатель, команда и партнёры.">
     <meta property="og:image" content="logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+    <link rel="shortcut icon" href="favicon.ico?v=2">
+    <link rel="stylesheet" href="style.css?v=53">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Julamore",
+      "alternateName": "Джуламор — дом мечты",
+      "description": "Архитектурная студия: проектирование частных домов, реконструкция, промышленные здания.",
+      "url": "https://julamore.ru/",
+      "logo": "https://julamore.ru/logo-full.png",
+      "email": "juliya_work@bk.ru",
+      "legalName": "ИП Шалимова Юлия Геннадьевна",
+      "taxID": "525629482153",
+      "founder": { "@type": "Person", "name": "Шалимова Юлия Геннадьевна" },
+      "foundingDate": "2015",
+      "areaServed": "RU"
+    }
+    </script>
+    <script>
+      // Сайт на GitHub Pages работает без сервера: форма и страница заявок
+      // переходят в демо-режим. На своём сервере всё работает по-настоящему.
+      window.JULAMORE_DEMO = /(^|\.)github\.io$/.test(location.hostname) || /[?&]demo=1/.test(location.search);
+      // Демо-копию не пускаем в поисковики, чтобы она не конкурировала с будущим сайтом
+      if (window.JULAMORE_DEMO) document.write('<meta name="robots" content="noindex, nofollow">');
+    </script>
 </head>
 <body>
     <header class="site-header">
         <a href="index.html" class="brand-btn">Julamore</a>
         <nav class="nav-menu" id="navMenu">
-            <a href="projects.html">Ваши мечты</a>
+            <a href="portfolio.html">Ваши мечты</a>
             <a href="about.html" class="active">Знакомство</a>
-            <a href="#" id="openModalHeader">Оставить заявку</a>
+            <a href="faq.html">Интересующие детали</a>
+            <a href="#" id="openModalHeader">Первый шаг</a>
         </nav>
         <button class="nav-toggle" id="navToggle" aria-label="Меню">
             <span></span><span></span><span></span>
@@ -30,146 +55,456 @@
     </header>
 
     <section class="about-hero">
-        <div>
+        <div class="hero-caption">
             <span class="eyebrow">Знакомство</span>
             <h1>Архитектура — это чертёж характера дома, а не только его стен.</h1>
         </div>
     </section>
 
-    <main class="page-section">
+    <main class="page-section page-wide">
         <div class="reveal">
-            <h2 class="section-heading">О компании Julamore</h2>
+            <h2 class="section-heading">Знакомимся без галстуков</h2>
             <p class="section-lead">
-                Мы проектируем и строим частные дома под ключ — от первого наброска на бумаге
-                до момента, когда вы получаете ключи. Каждый проект начинается не с шаблона,
-                а с разговора: как вы живёте, что цените, каким видите свой дом через десять лет.
+                Дом начинается не с фундамента, а с людей, которые его придумывают.
+                Здесь мы рассказываем о себе: кто мы, кто ведёт студию, кто чертит линии и с кем мы строим.
+                Нажмите на раздел — он развернётся.
             </p>
         </div>
 
-        <div class="philosophy-grid">
-            <div class="philosophy-card reveal">
-                <span class="num">01</span>
-                <h3>Индивидуальный проект</h3>
-                <p>Ни одного типового дома — каждый чертёж создаётся заново под участок, семью и бюджет.</p>
+        <div class="faq-list">
+
+            <!-- 01 — Наш основатель -->
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false" aria-controls="about-answer-2" id="about-q-2">
+                    <span class="faq-num">01</span>
+                    <span class="faq-heading">
+                        <span class="faq-eyebrow">Наш основатель</span>
+                        <span class="faq-title">Человек, с чьего карандаша всё началось</span>
+                    </span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer" id="about-answer-2" role="region" aria-labelledby="about-q-2">
+                    <div class="faq-answer-inner">
+                        <div class="faq-answer-body">
+                            <!-- Julia's own text, word for word — only the layout adds emphasis -->
+                            <div class="founder-story">
+                                <p class="founder-opening">Основатель! О… какое слово!</p>
+                                <p class="founder-opening-sub">Но так оно и есть когда речь идет о человеке который сильно влюблен в то что он делает…</p>
+
+                                <div class="founder">
+                                    <button class="founder-photo" data-zoom="founder"><img src="founder.jpg" alt="Шалимова Юлия Геннадьевна, основатель Julamore" loading="lazy"></button>
+                                    <div class="founder-text">
+                                        <p class="founder-aside">Не люблю официально, но один раз напишу…</p>
+                                        <p class="founder-name">Шалимова Юлия Геннадьевна, <span>основатель.</span></p>
+                                        <p class="founder-lead">Пишу про себя сама, кратко и по делу: <span class="story-hl">люблю людей</span>, <span class="story-hl">люблю свою профессию</span>, <span class="story-hl">имею диплом и допуски</span> и хочу чтобы у каждого человека планеты был свой собственный дом 🏠 в котором хочется быть и куда хочется возвращаться!</p>
+                                        <p>Кроме всего что касается проектирования и строительства я получила образование психолога для того чтобы не тратить ваше время и максимально быстро понимать ваш запрос.</p>
+                                        <p>Я и моя команда развиваемся не только по специальности, еще мы мы каждый по своему творческие и увлеченные люди. Находясь в гармонии с собой легче помочь найти «то самое» окружающим.</p>
+                                    </div>
+                                </div>
+
+                                <p class="founder-invite">Я жду вас в гости, не приходите просто за проектом, придите за воплощением своей мечты.</p>
+                            </div>
+
+                            <span class="faq-subhead" id="interview">Видеоинтервью</span>
+                            <div class="video-grid">
+                                <!-- the small player is only a preview; a click opens the big player -->
+                                <div class="video-card">
+                                    <div class="photo-slot video-slot">
+                                        <iframe src="https://rutube.ru/play/embed/ae3b6b8cc1f6127fe6bcc0e2daea6b0f"
+                                                title="Интервью №1" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+                                        <button class="video-open" aria-label="Смотреть интервью №1"
+                                                data-video-src="https://rutube.ru/play/embed/ae3b6b8cc1f6127fe6bcc0e2daea6b0f">
+                                            <span class="video-open-badge">Смотреть</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="video-card">
+                                    <div class="photo-slot video-slot">
+                                        <iframe src="https://vkvideo.ru/video_ext.php?oid=-210658291&amp;id=456239608&amp;hd=2"
+                                                title="Интервью №2" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+                                        <button class="video-open" aria-label="Смотреть интервью №2"
+                                                data-video-src="https://vkvideo.ru/video_ext.php?oid=-210658291&amp;id=456239608&amp;hd=2&amp;autoplay=1">
+                                            <span class="video-open-badge">Смотреть</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="philosophy-card reveal">
-                <span class="num">02</span>
-                <h3>Свой авторский надзор</h3>
-                <p>Архитектор ведёт объект от эскиза до сдачи, лично контролируя каждый этап стройки.</p>
+
+            <!-- 02 — Наша команда -->
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false" aria-controls="about-answer-3" id="about-q-3">
+                    <span class="faq-num">02</span>
+                    <span class="faq-heading">
+                        <span class="faq-eyebrow">Наша команда и её история</span>
+                        <span class="faq-title">Кто чертит линии вашего будущего дома?</span>
+                    </span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer" id="about-answer-3" role="region" aria-labelledby="about-q-3">
+                    <div class="faq-answer-inner">
+                        <div class="faq-answer-body">
+                            <!-- The client's text, word for word and in order — only the layout adds emphasis -->
+                            <div class="story">
+
+                                <div class="story-intro">
+                                    <div class="story-years" aria-hidden="true">
+                                        <span class="story-year">2015</span>
+                                        <span class="story-year story-year-dim">2004</span>
+                                    </div>
+                                    <p class="story-lead">
+                                        Наша компания существует с <strong>2015 года</strong>. Именно тогда руководителем было принято решение собрать команду единомышленников, которые умеют и хотят создавать для людей дома их мечты! Изначально этой миссией была увлечена только Юлия, чем занималась с <strong>2004 года</strong> практически в одиночестве… но спрос рос и амбиции тоже…
+                                    </p>
+                                </div>
+
+                                <div class="story-duo story-duo-center">
+
+                                    <p class="story-text">
+                                    Мы не про типовое решение, хотя с ним также можем помочь, мы про каждого тебя… про твои интересы и удобства, про твое пространство и дверь слева направо или с права налево…
+                                </p>
+
+                                    <blockquote class="story-pull">Мы помогаем спроектировать не дом, а жизнь в твоем доме…</blockquote>
+
+                                </div>
+
+                                <div class="story-cards">
+                                    <div class="story-card">
+                                        <span class="story-card-tag">Архитекторы</span>
+                                        <p>В нашей команде есть архитекторы, которые знают стили и моду и множество материалов и работают не только с экстерьером, но и с внутренней частью дома, понимая нюансы и немного думая за дизайнера…</p>
+                                    </div>
+                                    <div class="story-card">
+                                        <span class="story-card-tag">Конструкторы и расчётчики</span>
+                                        <p>Есть конструктора и расчетчики, которые на стадии эскизного проекта включаются в работу чтобы не получилась архитектура ради архитектуры… Любая идея архитектора, а значит изюминка вашего дома, должна иметь возможность быть реализованной, а значит мы посчитаем и продумаем узел.</p>
+                                    </div>
+                                </div>
+
+                                <div class="story-duo">
+
+                                    <div class="story-organism">
+                                    <span class="story-badge" aria-hidden="true">24/7</span>
+                                    <p class="story-text">
+                                        Дом, это организм, а значит в нем есть множество систем : <span class="story-hl">водопровод</span>, <span class="story-hl">канализация</span>, <span class="story-hl">вентиляция</span>, <span class="story-hl">отопление</span>, <span class="story-hl">электрика</span>… Если они правильно налажены и работают исправно, значит ваш дом живет счастливо и вы в нем априори! С этим мы также помогаем, наши доктора- инженера по коммуникациям на службе 24/7.
+                                    </p>
+                                </div>
+
+                                    <p class="story-note">
+                                    Вообще наша компания сотрудничает с дизайнерами интерьеров и с ландшафтными архитекторами, поэтому мы можем выполнить весь спектр услуг по проектированию «под ключ».
+                                </p>
+
+                                </div>
+
+                                <div class="story-duo story-duo-center">
+
+                                    <p class="story-text">
+                                    А потом можем не прощаясь с вами порекомендовать строителей, подписать с вами договор на авторский надзор и по окончанию строительства вашего дома совместно на террасе выпить чашечку кофе или чая за ваше новоселье!
+                                </p>
+
+                                    <p class="story-plan">Идеальный план! <span>А главное он реален!</span></p>
+
+                                </div>
+
+                                <p class="story-text story-cols">
+                                    Так мы довели до счастливого заселения десяток семей, в остальных случаях нашей командой производились точечные выезды и контроль, что также способствует улучшению качества работ, скорейшей реализации и хорошему настроению заказчика!
+                                </p>
+                                <div class="story-trademark">
+                                    <button class="trademark-doc" data-zoom="trademark"><img src="docs/julamore-tovarny-znak.jpg" alt="Свидетельство на товарный знак Julamore № 1196398" loading="lazy"></button>
+                                    <div class="trademark-info">
+                                        <span class="trademark-eyebrow">Товарный знак</span>
+                                        <h3 class="trademark-title">Julamore — зарегистрированный товарный знак</h3>
+                                        <p class="trademark-meta">Свидетельство № 1196398 · зарегистрирован 4 марта 2026 г. · действует до 28 апреля 2035 г.</p>
+                                        <a class="partner-link partner-link-site" href="docs/julamore-tovarny-znak-1196398.pdf" target="_blank" rel="noopener">Свидетельство, PDF</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- rows of photos at their own proportions: --r is width/height,
+                                 so every photo in a row ends up the same height, uncropped -->
+                            <div class="team-gallery">
+                                <div class="team-row">
+                                    <button class="team-photo" style="--r:1.333" data-zoom="team"><img src="team-1.jpg" alt="Команда Julamore за праздничным столом" loading="lazy"></button>
+                                    <button class="team-photo" style="--r:.75" data-zoom="team"><img src="team-2.jpg" alt="Объект, над которым работала команда" loading="lazy"></button>
+                                    <button class="team-photo" style="--r:.75" data-zoom="team"><img src="team-3.jpg" alt="Сотрудник Julamore с проектной документацией" loading="lazy"></button>
+                                </div>
+                                <div class="team-row">
+                                    <button class="team-photo" style="--r:1.333" data-zoom="team"><img src="team-4.jpg" alt="Команда Julamore на прогулке" loading="lazy"></button>
+                                    <button class="team-photo team-photo-solo" style="--r:.75" data-zoom="team"><img src="team-5.jpg" alt="Команда Julamore на строительной площадке" loading="lazy"></button>
+                                </div>
+                            </div>
+
+                            <p class="story-closing">Наша команда готова ко встрече с вами… а вы?</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="philosophy-card reveal">
-                <span class="num">03</span>
-                <h3>Честные сроки</h3>
-                <p>Мы называем реальные даты и фиксируем их в договоре — без «плюс-минус полгода».</p>
+
+            <!-- 03 — Наши партнёры -->
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false" aria-controls="about-answer-4" id="about-q-4">
+                    <span class="faq-num">03</span>
+                    <span class="faq-heading">
+                        <span class="faq-eyebrow">Наши партнёры</span>
+                        <span class="faq-title">С кем мы строим мечты плечом к плечу?</span>
+                    </span>
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer" id="about-answer-4" role="region" aria-labelledby="about-q-4">
+                    <div class="faq-answer-inner">
+                        <div class="faq-answer-body">
+                            <p class="faq-quote">Хороший дом, как хороший роман, пишется в соавторстве. Вот те, с кем мы делим перо.</p>
+
+                            <div class="partner-list">
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-wide"><img src="partners/logos/tk.svg" alt="Логотип — Тёплая керамика" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">01</span>
+                                        <h3 class="partner-name">Тёплая керамика</h3>
+                                        <p class="partner-desc">Керамические материалы и строительные решения: фасад, стены, кровля, ландшафт.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/teplay_keramika_nn" target="_blank" rel="noopener">Telegram</a>
+                                            <a class="partner-link partner-link-site" href="https://tk-nn.ru" target="_blank" rel="noopener">tk-nn.ru</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile partner-tile-video" style="--r:0.5625" data-video-src="partners/teplaya-keramika-video-1.mp4" aria-label="Смотреть видео — Тёплая керамика">
+                                            <video src="partners/teplaya-keramika-video-1.mp4#t=0.5" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                                            <span class="video-play" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-teplaya"><img src="partners/teplaya-keramika-1.jpg" alt="Тёплая керамика — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile partner-tile-video" style="--r:0.5625" data-video-src="partners/teplaya-keramika-video-2.mp4" aria-label="Смотреть видео — Тёплая керамика">
+                                            <video src="partners/teplaya-keramika-video-2.mp4#t=0.5" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                                            <span class="video-play" aria-hidden="true"></span>
+                                        </button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-teplaya"><img src="partners/teplaya-keramika-2.jpg" alt="Тёплая керамика — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:2.155" data-zoom="partner-teplaya"><img src="partners/teplaya-keramika-3.jpg" alt="Тёплая керамика — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-teplaya"><img src="partners/teplaya-keramika-4.jpg" alt="Тёплая керамика — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-teplaya"><img src="partners/teplaya-keramika-5.jpg" alt="Тёплая керамика — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-round"><img src="partners/logos/tihie-steny.jpg" alt="Логотип — Тихие стены" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">02</span>
+                                        <h3 class="partner-name">Тихие стены</h3>
+                                        <p class="partner-desc">Архитектурный текстиль для финишной отделки стен и потолков.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/tixiesteny" target="_blank" rel="noopener">Telegram</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-tihie"><img src="partners/tihie-steny-1.jpg" alt="Тихие стены — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-tihie"><img src="partners/tihie-steny-2.jpg" alt="Тихие стены — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-tihie"><img src="partners/tihie-steny-3.jpg" alt="Тихие стены — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-round"><img src="partners/logos/modny-nizhny.png" alt="Логотип — Модный Нижний" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">03</span>
+                                        <h3 class="partner-name">Модный Нижний</h3>
+                                        <p class="partner-desc">Платформа локальной моды, дизайнеров и креативных индустрий Нижнего Новгорода.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-vk" href="https://vk.ru/modniy_nizhny" target="_blank" rel="noopener">ВКонтакте</a>
+                                            <a class="partner-link partner-link-site" href="https://modnynn.ru" target="_blank" rel="noopener">modnynn.ru</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:1.5" data-zoom="partner-nizhny"><img src="partners/modny-nizhny-1.jpg" alt="Модный Нижний — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-round"><img src="partners/logos/milago.jpg" alt="Логотип — MILAGO Candles" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">04</span>
+                                        <h3 class="partner-name">MILAGO Candles</h3>
+                                        <p class="partner-desc">Производство премиальных эко-подарков из натурального воска для дома и бизнеса.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/MILAGO_Candles" target="_blank" rel="noopener">Telegram</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-milago"><img src="partners/milago-1.jpg" alt="MILAGO Candles — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-mark"><img src="partners/logos/graycardinal-gc.svg" alt="Логотип — Gray Cardinal" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">05</span>
+                                        <h3 class="partner-name">Gray Cardinal</h3>
+                                        <p class="partner-desc">Мебельный дом: мягкая мебель, 30 лет собственного производства. Работают по всей России.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/graycardinal_mebel" target="_blank" rel="noopener">Telegram</a>
+                                            <a class="partner-link partner-link-site" href="https://gray-cardinal.ru" target="_blank" rel="noopener">gray-cardinal.ru</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-cardinal"><img src="partners/gray-cardinal-1.jpg" alt="Gray Cardinal — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-cardinal"><img src="partners/gray-cardinal-2.jpg" alt="Gray Cardinal — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-tall"><img src="partners/logos/bogart.svg" alt="Логотип — Богарт" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">06</span>
+                                        <h3 class="partner-name">Богарт</h3>
+                                        <p class="partner-desc">Облицовочные материалы: кирпич и керамические блоки.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/bogart_su" target="_blank" rel="noopener">Telegram</a>
+                                            <a class="partner-link partner-link-site" href="https://bogart.su" target="_blank" rel="noopener">bogart.su</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:1.333" data-zoom="partner-bogart"><img src="partners/bogart-1.jpg" alt="Богарт — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-bogart"><img src="partners/bogart-2.jpg" alt="Богарт — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-tall"><img src="partners/logos/bogart.svg" alt="Логотип — Богарт и Браер" loading="lazy"></span>
+                                            <span class="partner-logo partner-logo-wide partner-logo-dark"><img src="partners/logos/braer.svg" alt="Логотип — Богарт и Браер" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">07</span>
+                                        <h3 class="partner-name">Богарт и Браер</h3>
+                                        <p class="partner-desc">Совместные проекты с производителем облицовочного кирпича и тротуарной плитки BRAER.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/bogart_su" target="_blank" rel="noopener">Telegram</a>
+                                            <a class="partner-link partner-link-site" href="https://braer.ru" target="_blank" rel="noopener">braer.ru</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-bogart-braer"><img src="partners/bogart-braer-1.jpg" alt="Богарт и Браер — совместная работа с Julamore" loading="lazy"></button>
+                                        <button class="partner-tile" style="--r:1.333" data-zoom="partner-bogart-braer"><img src="partners/bogart-braer-2.jpg" alt="Богарт и Браер — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-round"><img src="partners/logos/lyamina.jpg" alt="Логотип — Ландшафтное бюро Екатерины Ляминой" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">08</span>
+                                        <h3 class="partner-name">Ландшафтное бюро Екатерины Ляминой</h3>
+                                        <p class="partner-desc">Для тех, кто любит растения, свой сад и хочет сделать его ещё интереснее.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/lyaminaland15" target="_blank" rel="noopener">Telegram</a>
+                                        </div>
+                                    </div>
+                                    <div class="partner-media">
+                                        <button class="partner-tile" style="--r:0.75" data-zoom="partner-lyamina"><img src="partners/lyamina-1.jpg" alt="Ландшафтное бюро Екатерины Ляминой — совместная работа с Julamore" loading="lazy"></button>
+                                    </div>
+                                </article>
+                                <article class="partner-card partner-card-nomedia">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-wide"><img src="partners/logos/km-mebel.png" alt="Логотип — КМ Корпусная Мебель" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">09</span>
+                                        <h3 class="partner-name">КМ Корпусная Мебель</h3>
+                                        <p class="partner-desc">Корпусная мебель на заказ: стильная и функциональная мебель для вашего дома.</p>
+                                        <div class="partner-links">
+                                            <a class="partner-link partner-link-tg" href="https://t.me/KM_M_2026" target="_blank" rel="noopener">Telegram</a>
+                                            <a class="partner-link partner-link-max" href="https://max.ru/id740415762297_biz" target="_blank" rel="noopener">MAX</a>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="partner-card partner-card-nomedia">
+                                    <div class="partner-info">
+                                        <div class="partner-logos">
+                                            <span class="partner-logo partner-logo-wide"><img src="partners/logos/lumaro.svg" alt="Логотип — Lumaro" loading="lazy"></span>
+                                        </div>
+                                        <span class="partner-index">10</span>
+                                        <h3 class="partner-name">Lumaro</h3>
+                                        <p class="partner-desc">Окна, двери и перегородки. Официальный дилер ведущих брендов Европы и России, салон в Нижнем Новгороде на Белинского, 66.</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
-        <div class="stats-row reveal">
-            <div class="stat">
-                <span class="value">10+</span>
-                <span class="label">Реализованных проектов</span>
-            </div>
-            <div class="stat">
-                <span class="value">7 лет</span>
-                <span class="label">На рынке</span>
-            </div>
-            <div class="stat">
-                <span class="value">98%</span>
-                <span class="label">Клиентов рекомендуют нас</span>
-            </div>
-        </div>
-    </main>
-
-    <div class="dimension-divider reveal">
-        <span class="label">Как мы работаем</span>
-        <div class="tick-line"></div>
-    </div>
-
-    <main class="page-section" style="padding-top:60px;">
-        <div class="process">
-            <div class="process-step reveal">
-                <span class="step-index">01</span>
-                <div>
-                    <h4>Консультация</h4>
-                    <p>Обсуждаем участок, бюджет и то, каким должен быть ваш дом — без обязательств, чтобы понять, подходим ли мы друг другу.</p>
-                </div>
-            </div>
-            <div class="process-step reveal">
-                <span class="step-index">02</span>
-                <div>
-                    <h4>Проектирование</h4>
-                    <p>Разрабатываем эскиз, затем полный архитектурный проект с планировками, фасадами и инженерными разделами.</p>
-                </div>
-            </div>
-            <div class="process-step reveal">
-                <span class="step-index">03</span>
-                <div>
-                    <h4>Строительство</h4>
-                    <p>Возводим дом по проекту, еженедельно присылаем фотоотчёты и держим вас в курсе каждого этапа.</p>
-                </div>
-            </div>
-            <div class="process-step reveal">
-                <span class="step-index">04</span>
-                <div>
-                    <h4>Сдача объекта</h4>
-                    <p>Передаём готовый дом с полным пакетом документов и гарантией на выполненные работы.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="reveal" style="margin-top:70px; text-align:center;">
+        <div class="reveal" style="margin-top:80px; text-align:center;">
             <p class="section-lead" style="margin:0 auto 26px;">Готовы обсудить ваш будущий дом?</p>
-            <button class="btn btn-orange" id="openModalAbout">Оставить заявку</button>
+            <button class="btn btn-orange" id="openModalAbout">Первый шаг</button>
         </div>
     </main>
 
     <footer class="site-footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <a href="index.html" class="logo"><img src="logo.png" alt="Julamore Logo"></a>
-                <p>Проектируем и строим частные дома под ключ — от эскиза до передачи ключей.</p>
-            </div>
+        <div class="footer-main">
+            <a href="index.html" class="footer-logo" aria-label="Julamore — на главную">
+                <img src="logo-full.png?v=2" alt="Julamore — дом мечты">
+            </a>
 
-            <div class="footer-col">
-                <span class="footer-col-title">Навигация</span>
-                <a href="projects.html">Ваши мечты</a>
-                <a href="about.html">Знакомство</a>
-                <a href="#" id="openModalFooter">Оставить заявку</a>
-            </div>
+            <div class="footer-side">
+                <p class="footer-slogan">Проектируем дома, в которых хочется быть и куда хочется возвращаться.</p>
 
-            <div class="footer-col">
-                <span class="footer-col-title">Контакты</span>
-                <a href="tel:+74951204567">+7 (495) 120-45-67</a>
-                <a href="mailto:info@julamore.ru">info@julamore.ru</a>
-                <span class="footer-address">Москва, ул. Малая Ордынка, 25, офис 4</span>
-            </div>
+                <div class="footer-cols">
+                    <nav class="footer-col" aria-label="Навигация по сайту">
+                        <span class="footer-col-title">Навигация</span>
+                        <a href="portfolio.html">Ваши мечты</a>
+                        <a href="about.html">Знакомство</a>
+                        <a href="faq.html">Интересующие детали</a>
+                        <a href="#" id="openModalFooter">Первый шаг</a>
+                        <a href="privacy.html">Политика обработки данных</a>
+                        <a href="consent.html">Согласие на обработку данных</a>
+                    </nav>
 
-            <div class="footer-col">
-                <span class="footer-col-title">Мы в сети</span>
-                <div class="footer-social">
-                    <a href="#" aria-label="Telegram">Telegram</a>
-                    <a href="#" aria-label="Instagram">Instagram</a>
-                    <a href="#" aria-label="VK">VK</a>
+                    <div class="footer-col">
+                        <span class="footer-col-title">Напишите нам</span>
+                        <a class="footer-mail" href="mailto:juliya_work@bk.ru">juliya_work@bk.ru</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© 2026 ООО «Джуламор». Все права защищены.</span>
+            <span>© 2026 ИП Шалимова Юлия Геннадьевна, ИНН 525629482153. Все права защищены.</span>
+            <span>Julamore — зарегистрированный товарный знак № 1196398</span>
         </div>
     </footer>
 
-    <button class="floating-cta" id="openModalFloat">Оставить заявку</button>
+    <button class="floating-cta" id="openModalFloat">Первый шаг</button>
+
+    <div class="lightbox-overlay" id="photoLightbox" role="dialog" aria-modal="true" aria-label="Фотография">
+        <button class="lightbox-close" id="photoLightboxClose" aria-label="Закрыть">&times;</button>
+        <button class="lightbox-arrow lightbox-prev" id="photoLightboxPrev" aria-label="Предыдущее фото">&#8249;</button>
+        <img class="lightbox-image" id="photoLightboxImage" alt="">
+        <button class="lightbox-arrow lightbox-next" id="photoLightboxNext" aria-label="Следующее фото">&#8250;</button>
+    </div>
+
+    <div class="lightbox-overlay video-lightbox" id="videoLightbox" role="dialog" aria-modal="true" aria-label="Видеоинтервью">
+        <div class="video-lightbox-stage">
+            <div class="video-lightbox-frame" id="videoLightboxFrame"></div>
+            <button class="video-lightbox-fs" id="videoLightboxFs">На весь экран</button>
+        </div>
+        <button class="lightbox-close" id="videoLightboxClose" aria-label="Закрыть">&times;</button>
+    </div>
 
     <div class="modal-overlay" id="contactModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModal">&times;</button>
-            <h2>Оставить заявку</h2>
+            <h2>Первый шаг</h2>
             <form id="leadForm">
                 <div class="form-fields-wrapper" id="formFields">
                     <div class="form-group">
-                        <label for="firstName">Имя</label>
-                        <input type="text" id="firstName" required placeholder="Иван">
+                        <label for="firstName">Имя и отчество</label>
+                        <input type="text" id="firstName" required placeholder="Иван Иванович">
                     </div>
                     <div class="form-group">
                         <label for="lastName">Фамилия</label>
@@ -187,6 +522,11 @@
                         <label for="projectDescription">Описание проекта</label>
                         <textarea id="projectDescription" rows="4" placeholder="Расскажите, каким видите свой будущий дом"></textarea>
                     </div>
+                    <div class="form-consent">
+                        <input type="checkbox" id="leadConsent" required>
+                        <label for="leadConsent">Я даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку моих персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">Политику обработки персональных данных</a>.</label>
+                    </div>
+
                     <button type="submit" class="btn btn-orange" style="width:100%;">Отправить</button>
                 </div>
 
@@ -199,6 +539,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=71"></script>
 </body>
 </html>

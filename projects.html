@@ -5,25 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Наши проекты — Julamore</title>
     <meta name="description" content="Реализованные проекты студии Julamore — сравнение до/после постройки, площадь, габариты и фотографии каждого дома.">
+    <meta name="robots" content="noindex, follow">
     <meta name="theme-color" content="#E29303">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Наши проекты — Julamore">
     <meta property="og:description" content="Реализованные проекты студии Julamore — сравнение до/после постройки, площадь, габариты и фотографии каждого дома.">
     <meta property="og:image" content="logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+    <link rel="shortcut icon" href="favicon.ico?v=2">
+    <link rel="stylesheet" href="style.css?v=53">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Julamore",
+      "alternateName": "Джуламор — дом мечты",
+      "description": "Архитектурная студия: проектирование частных домов, реконструкция, промышленные здания.",
+      "url": "https://julamore.ru/",
+      "logo": "https://julamore.ru/logo-full.png",
+      "email": "juliya_work@bk.ru",
+      "legalName": "ИП Шалимова Юлия Геннадьевна",
+      "taxID": "525629482153",
+      "founder": { "@type": "Person", "name": "Шалимова Юлия Геннадьевна" },
+      "foundingDate": "2015",
+      "areaServed": "RU"
+    }
+    </script>
+    <script>
+      // Сайт на GitHub Pages работает без сервера: форма и страница заявок
+      // переходят в демо-режим. На своём сервере всё работает по-настоящему.
+      window.JULAMORE_DEMO = /(^|\.)github\.io$/.test(location.hostname) || /[?&]demo=1/.test(location.search);
+      // Демо-копию не пускаем в поисковики, чтобы она не конкурировала с будущим сайтом
+      if (window.JULAMORE_DEMO) document.write('<meta name="robots" content="noindex, nofollow">');
+    </script>
 </head>
 <body>
 
     <header class="site-header">
         <a href="index.html" class="brand-btn">Julamore</a>
         <nav class="nav-menu" id="navMenu">
-            <a href="projects.html" class="active">Ваши мечты</a>
+            <a href="portfolio.html" class="active">Ваши мечты</a>
             <a href="about.html">Знакомство</a>
-            <a href="#" id="openModalHeader">Оставить заявку</a>
+            <a href="faq.html">Интересующие детали</a>
+            <a href="#" id="openModalHeader">Первый шаг</a>
         </nav>
         <button class="nav-toggle" id="navToggle" aria-label="Меню">
             <span></span><span></span><span></span>
@@ -33,8 +59,27 @@
     <main class="projects-page">
         <section class="split-slider-wrapper">
 
+            <!-- shown only while the projects list in script.js is empty -->
+            <div class="projects-empty">
+                <span class="projects-empty-eyebrow">Ваши мечты</span>
+                <p class="projects-empty-title">Скоро здесь появятся воплощённые мечты</p>
+                <p class="projects-empty-text">Мы бережно собираем истории домов, которые спроектировали для наших клиентов.</p>
+                <button class="btn btn-orange" data-open-modal>Первый шаг</button>
+            </div>
+
             <div class="slider-dots-overlay">
+                <div class="projects-tabs" role="tablist">
+                    <button class="projects-tab active" role="tab" aria-selected="true" data-category="new">Новые дома</button>
+                    <button class="projects-tab" role="tab" aria-selected="false" data-category="reconstruction">Реконструкции</button>
+                    <button class="projects-tab" role="tab" aria-selected="false" data-category="industrial">Промышленные</button>
+                </div>
                 <div class="pagination-dots" id="dotsContainer"></div>
+            </div>
+
+            <!-- shown while the chosen collection has no projects yet -->
+            <div class="category-empty">
+                <p class="projects-empty-title">Реконструкции скоро появятся</p>
+                <p class="projects-empty-text">Здесь будут дома, которым мы подарили вторую жизнь: каким был дом — и каким он стал.</p>
             </div>
 
             <button class="slider-arrow arrow-left" id="prevBtn" aria-label="Предыдущий проект">&#8249;</button>
@@ -74,14 +119,14 @@
         </section>
 
         <section class="project-gallery-section">
-            <div class="dimension-divider reveal">
+            <div class="dimension-divider fade-in-up">
                 <span class="label">Детали проекта</span>
                 <div class="tick-line"></div>
             </div>
 
-            <div class="gallery-intro reveal">
+            <div class="gallery-intro fade-in-up">
                 <span class="gallery-eyebrow">Об этом проекте</span>
-                <p class="gallery-description" id="galleryDescription"></p>
+                <div class="gallery-description" id="galleryDescription"></div>
             </div>
 
             <div class="gallery-row" id="galleryRow"></div>
@@ -89,38 +134,36 @@
     </main>
 
     <footer class="site-footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <a href="index.html" class="logo"><img src="logo.png" alt="Julamore Logo"></a>
-                <p>Проектируем и строим частные дома под ключ — от эскиза до передачи ключей.</p>
-            </div>
+        <div class="footer-main">
+            <a href="index.html" class="footer-logo" aria-label="Julamore — на главную">
+                <img src="logo-full.png?v=2" alt="Julamore — дом мечты">
+            </a>
 
-            <div class="footer-col">
-                <span class="footer-col-title">Навигация</span>
-                <a href="projects.html">Ваши мечты</a>
-                <a href="about.html">Знакомство</a>
-                <a href="#" id="openModalFooter">Оставить заявку</a>
-            </div>
+            <div class="footer-side">
+                <p class="footer-slogan">Проектируем дома, в которых хочется быть и куда хочется возвращаться.</p>
 
-            <div class="footer-col">
-                <span class="footer-col-title">Контакты</span>
-                <a href="tel:+74951204567">+7 (495) 120-45-67</a>
-                <a href="mailto:info@julamore.ru">info@julamore.ru</a>
-                <span class="footer-address">Москва, ул. Малая Ордынка, 25, офис 4</span>
-            </div>
+                <div class="footer-cols">
+                    <nav class="footer-col" aria-label="Навигация по сайту">
+                        <span class="footer-col-title">Навигация</span>
+                        <a href="portfolio.html">Ваши мечты</a>
+                        <a href="about.html">Знакомство</a>
+                        <a href="faq.html">Интересующие детали</a>
+                        <a href="#" id="openModalFooter">Первый шаг</a>
+                        <a href="privacy.html">Политика обработки данных</a>
+                        <a href="consent.html">Согласие на обработку данных</a>
+                    </nav>
 
-            <div class="footer-col">
-                <span class="footer-col-title">Мы в сети</span>
-                <div class="footer-social">
-                    <a href="#" aria-label="Telegram">Telegram</a>
-                    <a href="#" aria-label="Instagram">Instagram</a>
-                    <a href="#" aria-label="VK">VK</a>
+                    <div class="footer-col">
+                        <span class="footer-col-title">Напишите нам</span>
+                        <a class="footer-mail" href="mailto:juliya_work@bk.ru">juliya_work@bk.ru</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© 2026 ООО «Джуламор». Все права защищены.</span>
+            <span>© 2026 ИП Шалимова Юлия Геннадьевна, ИНН 525629482153. Все права защищены.</span>
+            <span>Julamore — зарегистрированный товарный знак № 1196398</span>
         </div>
     </footer>
 
@@ -131,17 +174,17 @@
         <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Следующее фото">&#8250;</button>
     </div>
 
-    <button class="floating-cta" id="openModalFloat">Оставить заявку</button>
+    <button class="floating-cta" id="openModalFloat">Первый шаг</button>
 
     <div class="modal-overlay" id="contactModal">
         <div class="modal-window">
             <button class="modal-close" id="closeModal">&times;</button>
-            <h2>Оставить заявку</h2>
+            <h2>Первый шаг</h2>
             <form id="leadForm">
                 <div class="form-fields-wrapper" id="formFields">
                     <div class="form-group">
-                        <label for="firstName">Имя</label>
-                        <input type="text" id="firstName" required>
+                        <label for="firstName">Имя и отчество</label>
+                        <input type="text" id="firstName" required placeholder="Иван Иванович">
                     </div>
                     <div class="form-group">
                         <label for="lastName">Фамилия</label>
@@ -159,6 +202,11 @@
                         <label for="projectDescription">Описание проекта</label>
                         <textarea id="projectDescription" rows="4" placeholder="Расскажите, каким видите свой будущий дом"></textarea>
                     </div>
+                    <div class="form-consent">
+                        <input type="checkbox" id="leadConsent" required>
+                        <label for="leadConsent">Я даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку моих персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">Политику обработки персональных данных</a>.</label>
+                    </div>
+
                     <button type="submit" class="btn btn-orange" style="width: 100%;">Отправить</button>
                 </div>
 
@@ -171,6 +219,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=71"></script>
 </body>
 </html>
