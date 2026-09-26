@@ -2006,3 +2006,6 @@ p.legal-fill{ display:block; padding: 12px 16px; line-height: 1.7; }
 .legal-plain p{ color: var(--ink); font-size: .98rem; line-height: 1.7; margin: 0 0 12px; text-align: left; }
 .legal-plain i{ color: var(--ink-dim); }
 .legal-plain .legal-fill{ background: none; border: 0; padding: 0; color: inherit; }
+
+/* --- ловушка для спам-ботов: человек этого поля не видит --- */
+.form-trap{ position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }

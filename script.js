@@ -656,6 +656,7 @@ const openModalFloat = document.getElementById('openModalFloat');
 
 function openModal(e) {
     e.preventDefault();
+    window.__leadFormShown = Date.now();   // чтобы отличить человека от бота по скорости заполнения
     if (modal) modal.classList.add('active');
 }
 function closeModal() {
@@ -704,8 +705,11 @@ if (leadForm) {
         const submitText = submitBtn?.textContent;
         if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправляем…'; }
 
+        const trap = document.getElementById('leadWebsite');
         const lead = {
             firstName, lastName, phone, email, description,
+            website: trap ? trap.value : '',                  // ловушка: люди её не видят
+            elapsed: Date.now() - (window.__leadFormShown || 0),
             consent: !!consentBox?.checked,       // what the visitor agreed to, for our records
             consentText: consentBox ? consentBox.closest('.form-consent')?.innerText.trim() : '',
             page: location.pathname

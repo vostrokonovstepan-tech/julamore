@@ -73,3 +73,44 @@ node server/server.js
 и откройте http://localhost:8081 — сайт работает вместе с отправкой заявок.
 
 > `api/send-lead.js` — старый вариант той же отправки для хостинга Vercel. На VPS он не используется.
+
+## 7. Защита сервера (делается один раз после установки)
+
+```bash
+# вход по ключу вместо пароля: на своём компьютере
+ssh-keygen -t ed25519            # если ключа ещё нет
+ssh-copy-id root@<IP-сервера>    # скопировать ключ на сервер
+
+# на сервере: запретить вход по паролю
+sudo nano /etc/ssh/sshd_config   # PasswordAuthentication no, PermitRootLogin prohibit-password
+sudo systemctl restart ssh
+
+# firewall: наружу открыты только SSH и сайт
+sudo apt install -y ufw
+sudo ufw allow OpenSSH && sudo ufw allow 80 && sudo ufw allow 443 && sudo ufw enable
+
+# блокировка перебора паролей по SSH
+sudo apt install -y fail2ban && sudo systemctl enable --now fail2ban
+
+# автоматические обновления безопасности
+sudo apt install -y unattended-upgrades && sudo dpkg-reconfigure -plow unattended-upgrades
+```
+
+Резервная копия заявок (раз в сутки, хранить 30 дней):
+
+```bash
+sudo crontab -e
+# добавить строку:
+0 4 * * * tar czf /root/backups/leads-$(date +\%F).tar.gz /var/www/julamore/server/leads && find /root/backups -name 'leads-*' -mtime +30 -delete
+```
+
+Перед этим: `sudo mkdir -p /root/backups`.
+
+## 8. Что проверить после запуска
+
+- сайт открывается по HTTPS, замочек без предупреждений;
+- `sudo nginx -t` без ошибок, `sudo systemctl status julamore-leads` — active (running);
+- тестовая заявка доходит, копия появилась в `server/leads`;
+- `/leads.html` пускает по паролю из `.env` и не пускает по неверному;
+- `curl -I https://<домен>` показывает заголовки X-Content-Type-Options и X-Frame-Options;
+- `ls -l server/.env` — права `-rw-------` (600).

@@ -218,6 +218,14 @@ async function handleLead(req, res) {
     if (!lead.firstName || !lead.lastName || !lead.phone || !lead.email) {
         return sendJson(res, 400, { error: 'Missing required fields' });
     }
+    // Ловушка для ботов: скрытое поле, которое человек не видит и не заполняет,
+    // и слишком быстрое заполнение формы. Отвечаем как при успехе, чтобы бот не подбирал.
+    const trapFilled = clean(data.website, 200) !== '';
+    const tooFast = Number(data.elapsed) > 0 && Number(data.elapsed) < 2000;
+    if (trapFilled || tooFast) {
+        console.warn('Похоже на бота, заявка отброшена:', trapFilled ? 'ловушка' : 'слишком быстро');
+        return sendJson(res, 200, { ok: true });
+    }
     // 152-ФЗ: no consent — no processing
     if (!lead.consent) {
         return sendJson(res, 400, { error: 'Consent is required' });
@@ -226,9 +234,11 @@ async function handleLead(req, res) {
     // the record stays on this server (in Russia): proof of consent + a copy of the lead
     const record = { time: new Date().toISOString(), ip, ...lead };
     try {
-        fs.mkdirSync(LEADS_DIR, { recursive: true });
+        fs.mkdirSync(LEADS_DIR, { recursive: true, mode: 0o700 });
         const month = record.time.slice(0, 7);
-        fs.appendFileSync(path.join(LEADS_DIR, `leads-${month}.jsonl`), JSON.stringify(record) + '\n', 'utf8');
+        const file = path.join(LEADS_DIR, `leads-${month}.jsonl`);
+        fs.appendFileSync(file, JSON.stringify(record) + '\n', { encoding: 'utf8', mode: 0o600 });
+        try { fs.chmodSync(file, 0o600); } catch {}   // заявки читает только владелец процесса
     } catch (err) {
         console.error('Could not save the lead to disk:', err.message);
     }
