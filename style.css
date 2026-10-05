@@ -2009,3 +2009,16 @@ p.legal-fill{ display:block; padding: 12px 16px; line-height: 1.7; }
 
 /* --- ловушка для спам-ботов: человек этого поля не видит --- */
 .form-trap{ position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+
+/* --- круглый логотип-эмблема на светлом фоне (Точка) --- */
+.partner-logo-emblem{
+  width: 76px; height: 76px; border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--panel);
+  box-shadow: 0 0 0 1px var(--line-strong), 0 8px 22px rgba(42,36,32,.08);
+}
+.partner-logo-emblem img{ width: 72%; height:auto; }
+.partner-link-phone::before{ content:'°E'; color: var(--gold); }
+@media (max-width: 860px){
+  .partner-logo-emblem{ width: 60px; height: 60px; }
+}
