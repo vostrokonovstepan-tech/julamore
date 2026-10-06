@@ -112,7 +112,7 @@
 
 /* ---------- "how a project looks" + CTA ---------- */
 .pf-album{
-  display:grid; grid-template-columns: 300px 1fr; gap: 60px; align-items:center;
+  display:grid; grid-template-columns: 360px 1fr; gap: 60px; align-items:center;
   margin-top: 110px; padding: 56px; background: var(--bg-deep);
 }
 .pf-album video{ width:100%; aspect-ratio: 464 / 848; object-fit: cover; background:#1A1A1C; }

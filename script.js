@@ -379,8 +379,7 @@ const projectsData = [
       imgBefore: "projects/dom-nadezhda/render-1.jpg", imgAfter: "projects/dom-nadezhda/photo-1.jpg",
       fitAfter: "contain",
       gallery: ["projects/dom-nadezhda/photo-1.jpg", "projects/dom-nadezhda/photo-2.jpg",
-                "projects/dom-nadezhda/render-1.jpg", "projects/dom-nadezhda/render-2.jpg",
-                "projects/dom-nadezhda/video-1.mp4"],
+                "projects/dom-nadezhda/render-1.jpg", "projects/dom-nadezhda/render-2.jpg"],
       description: `Один из первых домов в нашей истории. Заказчики пришли и сказали, что хотят дом с плоскими кровлями, — для того времени это было началом начал: до этого все хотели многоскатные и двускатные крыши. Поэтому для нас это был своего рода пробный вариант.
 
 В итоге всё получилось так, как задумано. Особенно интересным вышел балкон — его хорошо видно и на фото, и на 3D-модели. Мы решили все задачи с водоотведением, участвовали в каждом этапе стройки и вели авторский надзор.
@@ -423,7 +422,7 @@ const projectsData = [
                 "projects/rekon-5/stage-3.jpg", "projects/rekon-5/stage-4.jpg",
                 "projects/rekon-5/stage-5.jpg"],
       description: `Работа на объекте: дом из бревна. Мы работаем и с живым материалом — рубленый сруб требует своих решений и своего отношения.` },
-    { title: "Реконструкция помещений",
+    { title: "Реконструкция",
       category: "reconstruction", noTags: true,
       area: "—", dimensions: "—", location: "—", date: "—",
       // the main material here is the video itself
@@ -434,9 +433,9 @@ const projectsData = [
       gallery: ["projects/rekon-6/video-1.mp4", "projects/rekon-6/frame-1.jpg", "projects/rekon-6/frame-2.jpg",
                 "projects/rekon-2/render-1.jpg", "projects/rekon-2/render-2.jpg",
                 "projects/rekon-2/before-1.jpg", "projects/rekon-2/before-2.jpg"],
-      description: `Реконструкция помещений, усиление перекрытий.
+      description: `Реконструкция помещений, усиление перекрытий. Здесь же — проект реконструкции жилого дома с эркером: каким дом был и каким он станет.
 
-Здесь же — проект реконструкции жилого дома с эркером: каким дом был и каким он станет.` },
+Дом не обязательно строить с нуля. Можно перепланировать помещения, усилить перекрытия, надстроить этаж или пристроить новый объём, поменять фасад — и получить другой дом на том же месте. С такими задачами тоже приходите к нам.` },
 
     /* ---------- Промышленные здания ---------- */
     { title: "Промышленный комплекс",

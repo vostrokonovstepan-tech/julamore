@@ -14,8 +14,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
     <link rel="shortcut icon" href="favicon.ico?v=2">
-    <link rel="stylesheet" href="style.css?v=59">
-    <link rel="stylesheet" href="portfolio.css?v=4">
+    <link rel="stylesheet" href="style.css?v=60">
+    <link rel="stylesheet" href="portfolio.css?v=5">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -74,11 +74,20 @@
         <section class="pf-grid" id="pfGrid" aria-live="polite"></section>
 
         <section class="pf-album">
-            <button class="album-play" data-album="docs/project-album.mp4" aria-label="Смотреть видео: как выглядит проект"><video src="docs/project-album.mp4#t=0.5" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video><span class="video-play" aria-hidden="true"></span></button>
+            <div class="album-pair">
+                <figure class="album-item">
+                    <button class="album-play" data-album="docs/project-album.mp4" aria-label="Смотреть видео: эскизный проект"><video src="docs/project-album.mp4#t=0.5" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video><span class="video-play" aria-hidden="true"></span></button>
+                    <figcaption>Эскизный проект</figcaption>
+                </figure>
+                <figure class="album-item">
+                    <button class="album-play" data-album="docs/working-project.mp4" aria-label="Смотреть видео: рабочий проект"><video src="docs/working-project.mp4#t=0.5" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video><span class="video-play" aria-hidden="true"></span></button>
+                    <figcaption>Рабочий проект</figcaption>
+                </figure>
+            </div>
             <div>
                 <span class="pf-eyebrow">Что вы получаете</span>
                 <h2>Как выглядит проект</h2>
-                <p>Готовый эскизный проект — архитектурно-строительные решения: визуализации будущего дома, планы этажей и чертежи, собранные в один альбом.</p>
+                <p>Готовый эскизный проект — архитектурно-строительные решения: визуализации будущего дома, планы этажей и чертежи, собранные в один альбом. Рядом — рабочий проект: разрезы, узлы и ведомости, по которым на площадке ведут работы.</p>
             </div>
         </section>
 
@@ -212,7 +221,7 @@
         </div>
     </div>
 
-    <script src="script.js?v=77"></script>
+    <script src="script.js?v=78"></script>
     <script src="portfolio.js?v=6"></script>
 </body>
 </html>
