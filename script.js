@@ -353,7 +353,9 @@ const projectsData = [
       area: "—", dimensions: "—", location: "Буревестник", date: "—",
       imgBefore: "projects/dom-8/render-1.jpg", imgAfter: "projects/dom-8/photo-1.jpg",
       fitBefore: "contain", fitAfter: "contain",
-      gallery: ["projects/dom-8/photo-1.jpg", "projects/dom-8/photo-2.jpg", "projects/dom-8/render-1.jpg"],
+      gallery: ["projects/dom-8/photo-1.jpg", "projects/dom-8/photo-2.jpg", "projects/dom-8/render-1.jpg",
+                "projects/dom-8/render-2.jpg", "projects/dom-8/render-3.jpg",
+                "projects/dom-8/render-4.jpg", "projects/dom-8/render-5.jpg"],
       description: `Этот дом мы показываем, чтобы было видно: мы проектируем и строим самые разные дома.
 
 Основной запрос заказчицы звучал так: «Я никогда не жила в частном доме — всегда на высоких этажах. Поэтому мне важно, чтобы в окна я не видела проходящих мимо людей».
@@ -361,11 +363,13 @@ const projectsData = [
 Поэтому в этом доме мы сделали высокий цоколь: 8 ступенек крыльца и ещё 900 мм от пола до окон. Даже самый высокий человек, проходящий мимо дома, не будет заметен.
 
 Для нас важны не только комфорт и уют наших заказчиков, но и их спокойствие.` },
-    { title: "Дом на две семьи в Балахне",
-      area: "—", dimensions: "—", location: "Балахна", date: "—",
+    { title: "Дом на две семьи в Новинках",
+      area: "—", dimensions: "—", location: "Богородский район, п. Новинки", date: "—",
       imgBefore: "projects/dom-balakhna/render-1.jpg", imgAfter: "projects/dom-balakhna/photo-1.jpg",
-      gallery: ["projects/dom-balakhna/photo-1.jpg", "projects/dom-balakhna/render-1.jpg"],
-      description: `Дом построен в Балахне, Нижегородская область. Изначально он задумывался с лёгким намёком на восточный стиль — об этом говорят входная группа, круглое окошко и арочные проёмы.
+      gallery: ["projects/dom-balakhna/photo-1.jpg", "projects/dom-balakhna/photo-2.jpg",
+                "projects/dom-balakhna/render-1.jpg", "projects/dom-balakhna/render-2.jpg",
+                "projects/dom-balakhna/render-3.jpg", "projects/dom-balakhna/render-4.jpg"],
+      description: `Дом построен в посёлке Новинки Богородского района Нижегородской области. Изначально он задумывался с лёгким намёком на восточный стиль — об этом говорят входная группа, круглое окошко и арочные проёмы.
 
 Главная история этого дома — он на две семьи: для мамы и семьи сына. У них совершенно разные предпочтения и разный вкус, но нам удалось объединить в одном доме пожелания каждого.
 
@@ -382,6 +386,16 @@ const projectsData = [
 В итоге всё получилось так, как задумано. Особенно интересным вышел балкон — его хорошо видно и на фото, и на 3D-модели. Мы решили все задачи с водоотведением, участвовали в каждом этапе стройки и вели авторский надзор.
 
 Заказчики вернулись к нам за проектом бани и привели с собой нескольких друзей — для них мы тоже выполнили интересные проекты.` },
+
+    { title: "Дом с авторским надзором",
+      area: "—", dimensions: "—", location: "ул. Вербная, Нижний Новгород", date: "—",
+      imgBefore: "projects/verbnaya/render-1.jpg", imgAfter: "projects/verbnaya/photo-1.jpg",
+      gallery: ["projects/verbnaya/render-1.jpg", "projects/verbnaya/render-2.jpg",
+                "projects/verbnaya/render-3.jpg", "projects/verbnaya/plan-1.jpg",
+                "projects/verbnaya/stroyka-1.jpg", "projects/verbnaya/stroyka-2.jpg",
+                "projects/verbnaya/stroyka-3.jpg", "projects/verbnaya/stroyka-4.jpg",
+                "projects/verbnaya/photo-1.jpg"],
+      description: `Начали мы с фундамента и на данный момент завершаем… Нет, начали с проекта, потом вышли на стройплощадку, залили фундамент и не успели заметить, как в данный момент идут крайние работы по фасаду.` },
 
     /* ---------- Реконструкции ---------- */
     { title: "Вторая жизнь дома с башней",
@@ -403,16 +417,11 @@ const projectsData = [
       category: "reconstruction",
       area: "—", dimensions: "—", location: "—", date: "—",
       imgBefore: "projects/rekon-3/stage-1.jpg", imgAfter: "projects/rekon-3/stage-2.jpg",
-      gallery: ["projects/rekon-3/stage-1.jpg", "projects/rekon-3/stage-2.jpg"],
-      description: `Работа на объекте: кирпичные стены и стропильная система — и тот же дом уже в фальцевом фасаде.` },
-    // both photos are just stages of work, so the before/after labels are hidden
-    { title: "Дом над Волгой",
-      category: "reconstruction", noTags: true,
-      area: "—", dimensions: "—", location: "—", date: "—",
-      imgBefore: "projects/rekon-4/stage-1.jpg", imgAfter: "projects/rekon-4/stage-2.jpg",
-      fitAfter: "contain",
-      gallery: ["projects/rekon-4/stage-1.jpg", "projects/rekon-4/stage-2.jpg"],
-      description: `Работа на объекте: дом на склоне с видом на Волгу.` },
+      gallery: ["projects/rekon-3/stage-1.jpg", "projects/rekon-3/stage-2.jpg",
+                "projects/rekon-3/stage-3.jpg", "projects/rekon-3/stage-4.jpg"],
+      description: `Работа на объекте: кирпичные стены и стропильная система — и тот же дом уже в фальцевом фасаде.
+
+Иногда в качестве заказчиков приходят профессионалы в смежных направлениях. В данном случае заказчицей выступала дизайнер Любовь Раковская. На основании её дизайн-проекта был реализован проект на конструкции такого великолепного двухэтажного шале.` },
     { title: "Дом из бревна",
       category: "reconstruction", noTags: true,
       area: "—", dimensions: "—", location: "—", date: "—",
