@@ -271,7 +271,8 @@ const projectsData = [
       area: "—", dimensions: "—", location: "Нижегородская область", date: "—",
       imgBefore: "projects/dom-4/render-1.jpg", imgAfter: "projects/dom-4/photo-1.jpg",
       gallery: ["projects/dom-4/photo-1.jpg", "projects/dom-4/photo-2.jpg", "projects/dom-4/photo-3.jpg",
-                "projects/dom-4/render-1.jpg"],
+                "projects/dom-4/render-1.jpg", "projects/dom-4/render-2.jpg",
+                "projects/dom-4/render-3.jpg", "projects/dom-4/render-4.jpg"],
       description: `Заказчик долго искал своего проектировщика: когда он пришёл к нам, у него на руках было уже три проекта от разных архитекторов. Строить свой дом он решил именно по нашему проекту — и на фотографиях видно, что дом реализован.
 
 Дом построен в Нижегородской области, в Михальчиково, на участке со склоном. Со стороны дороги он смотрится одноэтажным, а со стороны реки — двухэтажным.
@@ -303,7 +304,9 @@ const projectsData = [
     { title: "Хай-тек с консолью на Новопокровской",
       area: "—", dimensions: "—", location: "Нижний Новгород", date: "—",
       imgBefore: "projects/dom-1/render-1.jpg", imgAfter: "projects/dom-1/render-2.jpg",
-      gallery: ["projects/dom-1/render-1.jpg", "projects/dom-1/render-2.jpg"],
+      gallery: ["projects/dom-1/photo-1.jpg", "projects/dom-1/photo-2.jpg",
+                "projects/dom-1/photo-3.jpg", "projects/dom-1/photo-4.jpg",
+                "projects/dom-1/photo-5.jpg", "projects/dom-1/photo-stroyka.jpg"],
       // paragraphs are separated by an empty line
       description: `Дом в современном стиле хай-тек в Нижнем Новгороде, на Новопокровской. Заказчик хотел построить дом не такой, как у всех, и доверил нам прежде всего не внешний вид, а конструктивные особенности.
 
@@ -319,7 +322,8 @@ const projectsData = [
       imgBefore: "projects/dom-5/render-1.jpg", imgAfter: "projects/dom-5/photo-1.jpg",
       fitBefore: "contain",
       gallery: ["projects/dom-5/photo-1.jpg", "projects/dom-5/photo-4.jpg", "projects/dom-5/photo-5.jpg",
-                "projects/dom-5/photo-2.jpg", "projects/dom-5/photo-3.jpg", "projects/dom-5/render-1.jpg"],
+                "projects/dom-5/photo-2.jpg", "projects/dom-5/photo-3.jpg", "projects/dom-5/render-1.jpg",
+                "projects/dom-5/render-2.jpg", "projects/dom-5/render-3.jpg", "projects/dom-5/render-4.jpg"],
       description: `Дом построен в Нижегородской области, рядом с деревней Бурцево. Этот проект был очень интересным: заказчица прорабатывала его вместе с нами очень дотошно — до каждого миллиметра, замечая в проекте любые изменения.
 
 Благодаря её щепетильности и нашему индивидуальному подходу к каждому заказчику дом приобрёл такой симпатичный вид.
@@ -329,7 +333,9 @@ const projectsData = [
       area: "—", dimensions: "—", location: "Нижегородская область", date: "—",
       imgBefore: "projects/dom-6/render-1.jpg", imgAfter: "projects/dom-6/photo-1.jpg",
       fitAfter: "contain", posAfter: "right center",
-      gallery: ["projects/dom-6/photo-1.jpg", "projects/dom-6/photo-winter.jpg", "projects/dom-6/render-1.jpg"],
+      gallery: ["projects/dom-6/photo-1.jpg", "projects/dom-6/photo-2.jpg", "projects/dom-6/photo-3.jpg",
+                "projects/dom-6/photo-winter.jpg", "projects/dom-6/render-1.jpg",
+                "projects/dom-6/render-2.jpg", "projects/dom-6/render-3.jpg"],
       description: `Дом построен в деревне Скипино Нижегородской области. Заказчик пришёл с запросом построить красивый дом в местности, которая только начинала застраиваться: вокруг — деревенька с простыми деревенскими домами.
 
 После него к нам пришли все его друзья и соседи — это ещё пять проектов на соседних участках.
@@ -339,7 +345,8 @@ const projectsData = [
       area: "—", dimensions: "—", location: "—", date: "—",
       imgBefore: "projects/dom-7/render-1.jpg", imgAfter: "projects/dom-7/photo-3.jpg",
       gallery: ["projects/dom-7/photo-1.jpg", "projects/dom-7/photo-2.jpg", "projects/dom-7/photo-3.jpg",
-                "projects/dom-7/video-1.mp4", "projects/dom-7/render-1.jpg"],
+                "projects/dom-7/photo-4.jpg", "projects/dom-7/photo-5.jpg",
+                "projects/dom-7/video-1.mp4", "projects/dom-7/video-2.mp4", "projects/dom-7/render-1.jpg"],
       description: `Об этом доме Юлия подробно рассказывает во втором видеоинтервью — как рождался проект и каким получился дом.`,
       link: { href: "about.html#interview", text: "Смотреть интервью" } },
     { title: "Высокий цоколь в Буревестнике",
