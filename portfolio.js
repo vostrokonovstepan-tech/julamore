@@ -7,7 +7,7 @@
     const grid = document.getElementById('pfGrid');
     if (!grid || typeof projectsData === 'undefined') return;
 
-    const CATEGORY_NAMES = { new: 'Новый дом', reconstruction: 'Реконструкция', industrial: 'Промышленный объект' };
+    const CATEGORY_NAMES = { new: 'Новый дом', reconstruction: 'Реконструкция', industrial: 'Промышленный объект', wood: 'Дом из живого материала' };
     const categoryOf = p => p.category || 'new';
 
     function plural(n, one, few, many) {

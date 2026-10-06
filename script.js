@@ -406,13 +406,6 @@ const projectsData = [
                 "projects/rekon-1/after-1.jpg", "projects/rekon-1/before-4.jpg", "projects/rekon-1/before-1.jpg",
                 "projects/rekon-1/before-2.jpg", "projects/rekon-1/before-3.jpg"],
       description: `Реконструкция жилого дома: каким он был — и каким стал.` },
-    { title: "Реконструкция дома с эркером",
-      category: "reconstruction",
-      area: "—", dimensions: "—", location: "—", date: "—",
-      imgBefore: "projects/rekon-2/before-1.jpg", imgAfter: "projects/rekon-2/render-1.jpg",
-      gallery: ["projects/rekon-2/render-1.jpg", "projects/rekon-2/render-2.jpg",
-                "projects/rekon-2/before-1.jpg", "projects/rekon-2/before-2.jpg"],
-      description: `Проект реконструкции жилого дома: каким дом был — и каким он станет.` },
     { title: "Дом в фальцевом фасаде",
       category: "reconstruction",
       area: "—", dimensions: "—", location: "—", date: "—",
@@ -423,11 +416,13 @@ const projectsData = [
 
 Иногда в качестве заказчиков приходят профессионалы в смежных направлениях. В данном случае заказчицей выступала дизайнер Любовь Раковская. На основании её дизайн-проекта был реализован проект на конструкции такого великолепного двухэтажного шале.` },
     { title: "Дом из бревна",
-      category: "reconstruction", noTags: true,
+      category: "wood", noTags: true,
       area: "—", dimensions: "—", location: "—", date: "—",
       imgBefore: "projects/rekon-5/stage-1.jpg", imgAfter: "projects/rekon-5/stage-2.jpg",
-      gallery: ["projects/rekon-5/stage-1.jpg", "projects/rekon-5/stage-2.jpg"],
-      description: `Работа на объекте: дом из бревна.` },
+      gallery: ["projects/rekon-5/stage-1.jpg", "projects/rekon-5/stage-2.jpg",
+                "projects/rekon-5/stage-3.jpg", "projects/rekon-5/stage-4.jpg",
+                "projects/rekon-5/stage-5.jpg"],
+      description: `Работа на объекте: дом из бревна. Мы работаем и с живым материалом — рубленый сруб требует своих решений и своего отношения.` },
     { title: "Реконструкция помещений",
       category: "reconstruction", noTags: true,
       area: "—", dimensions: "—", location: "—", date: "—",
@@ -436,8 +431,12 @@ const projectsData = [
       // frames taken from the video — the object has no separate photos
       imgBefore: "projects/rekon-6/frame-1.jpg", imgAfter: "projects/rekon-6/frame-2.jpg",
       fitBefore: "contain", fitAfter: "contain", posBefore: "22% center", posAfter: "78% center",
-      gallery: ["projects/rekon-6/video-1.mp4", "projects/rekon-6/frame-1.jpg", "projects/rekon-6/frame-2.jpg"],
-      description: `Реконструкция помещений, усиление перекрытий.` },
+      gallery: ["projects/rekon-6/video-1.mp4", "projects/rekon-6/frame-1.jpg", "projects/rekon-6/frame-2.jpg",
+                "projects/rekon-2/render-1.jpg", "projects/rekon-2/render-2.jpg",
+                "projects/rekon-2/before-1.jpg", "projects/rekon-2/before-2.jpg"],
+      description: `Реконструкция помещений, усиление перекрытий.
+
+Здесь же — проект реконструкции жилого дома с эркером: каким дом был и каким он станет.` },
 
     /* ---------- Промышленные здания ---------- */
     { title: "Промышленный комплекс",
