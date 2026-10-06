@@ -368,7 +368,8 @@ const projectsData = [
       imgBefore: "projects/dom-nadezhda/render-1.jpg", imgAfter: "projects/dom-nadezhda/photo-1.jpg",
       fitAfter: "contain",
       gallery: ["projects/dom-nadezhda/photo-1.jpg", "projects/dom-nadezhda/photo-2.jpg",
-                "projects/dom-nadezhda/render-1.jpg", "projects/dom-nadezhda/render-2.jpg"],
+                "projects/dom-nadezhda/render-1.jpg", "projects/dom-nadezhda/render-2.jpg",
+                "projects/dom-nadezhda/video-1.mp4"],
       description: `Один из первых домов в нашей истории. Заказчики пришли и сказали, что хотят дом с плоскими кровлями, — для того времени это было началом начал: до этого все хотели многоскатные и двускатные крыши. Поэтому для нас это был своего рода пробный вариант.
 
 В итоге всё получилось так, как задумано. Особенно интересным вышел балкон — его хорошо видно и на фото, и на 3D-модели. Мы решили все задачи с водоотведением, участвовали в каждом этапе стройки и вели авторский надзор.
