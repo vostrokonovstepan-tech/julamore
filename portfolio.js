@@ -7,7 +7,8 @@
     const grid = document.getElementById('pfGrid');
     if (!grid || typeof projectsData === 'undefined') return;
 
-    const CATEGORY_NAMES = { new: 'Новый дом', reconstruction: 'Реконструкция', industrial: 'Промышленный объект', wood: 'Дом из живого материала' };
+    const CATEGORY_NAMES = { new: 'Новый дом', reconstruction: 'Реконструкция', industrial: 'Промышленный объект',
+                             wood: 'Дом из живого материала', other: 'Другие работы' };
     const categoryOf = p => p.category || 'new';
 
     function plural(n, one, few, many) {
@@ -26,13 +27,14 @@
     }
 
     /* ---------- stats ---------- */
-    const counts = { new: 0, reconstruction: 0, industrial: 0 };
+    const counts = { new: 0, reconstruction: 0, industrial: 0, wood: 0, other: 0 };
     projectsData.forEach(p => { counts[categoryOf(p)]++; });
     const stats = document.getElementById('pfStats');
     if (stats) {
         stats.innerHTML = [
             [counts.new, plural(counts.new, 'новый дом', 'новых дома', 'новых домов')],
             [counts.reconstruction, plural(counts.reconstruction, 'реконструкция', 'реконструкции', 'реконструкций')],
+            [counts.wood, plural(counts.wood, 'дом из живого материала', 'дома из живого материала', 'домов из живого материала')],
             [counts.industrial, plural(counts.industrial, 'промышленный объект', 'промышленных объекта', 'промышленных объектов')],
         ].filter(([n]) => n > 0)
          .map(([n, label]) => `<div class="pf-stat"><span class="pf-stat-value">${n}</span><span class="pf-stat-label">${label}</span></div>`)
@@ -118,7 +120,7 @@
         // a project whose main material is a video: show the player instead of the comparison
         const videoBox = document.getElementById('pfCaseVideo');
         videoBox.hidden = !p.video;
-        compare.hidden = !!p.video;
+        compare.hidden = !!p.video || !!p.galleryOnly;   // подборка визуализаций показывается только галереей
         videoBox.replaceChildren();
         if (p.video) {
             const player = document.createElement('video');

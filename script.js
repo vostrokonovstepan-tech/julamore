@@ -437,6 +437,19 @@ const projectsData = [
 
 Дом не обязательно строить с нуля. Можно перепланировать помещения, усилить перекрытия, надстроить этаж или пристроить новый объём, поменять фасад — и получить другой дом на том же месте. С такими задачами тоже приходите к нам.` },
 
+    { title: "А что ещё мы делали",
+      category: "other", noTags: true, galleryOnly: true,
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/more/render-01.jpg", imgAfter: "projects/more/render-04.jpg",
+      gallery: ["projects/more/render-01.jpg", "projects/more/render-02.jpg",
+                "projects/more/render-03.jpg", "projects/more/render-04.jpg",
+                "projects/more/render-05.jpg", "projects/more/render-06.jpg",
+                "projects/more/render-07.jpg", "projects/more/render-08.jpg",
+                "projects/more/render-09.jpg", "projects/more/render-10.jpg",
+                "projects/more/render-11.jpg", "projects/more/render-12.jpg",
+                "projects/more/render-13.jpg", "projects/more/render-14.jpg"],
+      description: `По каждому из этих домов мы могли бы сделать отдельную страницу с «до» и «после». Но оставляем карусель — чтобы не утомлять вас рассказами.` },
+
     /* ---------- Промышленные здания ---------- */
     { title: "Промышленный комплекс",
       category: "industrial", noTags: true,
