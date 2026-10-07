@@ -2045,3 +2045,9 @@ p.legal-fill{ display:block; padding: 12px 16px; line-height: 1.7; }
   letter-spacing: .16em; color: var(--ink); line-height: 1;
 }
 @media (max-width: 860px){ .partner-logo-text{ font-size: 1.3rem; } }
+
+/* --- на телефоне поля не меньше 16px: иначе Safari на iPhone зумит страницу при тапе --- */
+@media (max-width: 860px){
+  .form-group input, .form-group textarea, .form-group select,
+  #leadForm input, #leadForm textarea{ font-size: 16px; }
+}
