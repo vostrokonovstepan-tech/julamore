@@ -302,8 +302,9 @@ const projectsData = [
 
 Дом выполнен из газосиликатного блока, кровля — мягкая черепица. Фасад отделан штукатуркой и плиткой под натуральный камень.` },
     { title: "Хай-тек с консолью на Новопокровской",
+      noTags: true,                      // оба кадра — виды проекта, подписи «до/после» тут не нужны
       area: "—", dimensions: "—", location: "Нижний Новгород", date: "—",
-      imgBefore: "projects/dom-1/render-1.jpg", imgAfter: "projects/dom-1/render-2.jpg",
+      imgBefore: "projects/dom-1/photo-1.jpg", imgAfter: "projects/dom-1/photo-2.jpg",
       gallery: ["projects/dom-1/photo-1.jpg", "projects/dom-1/photo-2.jpg",
                 "projects/dom-1/photo-3.jpg", "projects/dom-1/photo-4.jpg",
                 "projects/dom-1/photo-5.jpg", "projects/dom-1/photo-stroyka.jpg"],
