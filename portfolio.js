@@ -163,6 +163,7 @@
         }
 
         const gallery = document.getElementById('pfCaseGallery');
+        gallery.classList.toggle('pf-gallery-strip', !!p.galleryOnly);   // подборка листается лентой
         gallery.replaceChildren(...p.gallery.map((src, i) => {
             const tile = document.createElement('button');
             tile.className = 'pf-tile';

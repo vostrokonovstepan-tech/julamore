@@ -284,3 +284,24 @@
 }
 .pf-case-video[hidden]{ display:none; }
 .pf-case-video video{ max-width: 100%; max-height: 100%; height: 100%; }
+
+/* ---------- подборка визуализаций: лента с горизонтальной прокруткой ---------- */
+.pf-gallery-strip{
+  display:flex; grid-template-columns:none;
+  gap: 14px; overflow-x:auto; overflow-y:hidden;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: var(--gold) var(--bg-deep);
+  scrollbar-width: thin;
+}
+.pf-gallery-strip .pf-tile{
+  flex: 0 0 auto; width: clamp(260px, 32vw, 420px);
+  scroll-snap-align: start;
+}
+.pf-gallery-strip::-webkit-scrollbar{ height: 6px; }
+.pf-gallery-strip::-webkit-scrollbar-track{ background: var(--bg-deep); }
+.pf-gallery-strip::-webkit-scrollbar-thumb{ background: var(--gold); }
+@media (max-width: 860px){
+  .pf-gallery-strip{ gap: 10px; }
+  .pf-gallery-strip .pf-tile{ width: 76vw; }
+}

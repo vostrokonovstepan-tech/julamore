@@ -437,6 +437,17 @@ const projectsData = [
 
 Дом не обязательно строить с нуля. Можно перепланировать помещения, усилить перекрытия, надстроить этаж или пристроить новый объём, поменять фасад — и получить другой дом на том же месте. С такими задачами тоже приходите к нам.` },
 
+
+
+    /* ---------- Промышленные здания ---------- */
+    { title: "Промышленный комплекс",
+      category: "industrial", noTags: true,
+      area: "—", dimensions: "—", location: "—", date: "—",
+      imgBefore: "projects/prom-1/photo-3.jpg", imgAfter: "projects/prom-1/photo-2.jpg",
+      gallery: ["projects/prom-1/photo-3.jpg", "projects/prom-1/photo-2.jpg",
+                "projects/prom-1/photo-1.jpg", "projects/prom-1/photo-4.jpg"],
+      description: `Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.` },
+
     { title: "А что ещё мы делали",
       category: "other", noTags: true, galleryOnly: true,
       area: "—", dimensions: "—", location: "—", date: "—",
@@ -447,17 +458,18 @@ const projectsData = [
                 "projects/more/render-07.jpg", "projects/more/render-08.jpg",
                 "projects/more/render-09.jpg", "projects/more/render-10.jpg",
                 "projects/more/render-11.jpg", "projects/more/render-12.jpg",
-                "projects/more/render-13.jpg", "projects/more/render-14.jpg"],
-      description: `По каждому из этих домов мы могли бы сделать отдельную страницу с «до» и «после». Но оставляем карусель — чтобы не утомлять вас рассказами.` },
-
-    /* ---------- Промышленные здания ---------- */
-    { title: "Промышленный комплекс",
-      category: "industrial", noTags: true,
-      area: "—", dimensions: "—", location: "—", date: "—",
-      imgBefore: "projects/prom-1/photo-3.jpg", imgAfter: "projects/prom-1/photo-2.jpg",
-      gallery: ["projects/prom-1/photo-3.jpg", "projects/prom-1/photo-2.jpg",
-                "projects/prom-1/photo-1.jpg", "projects/prom-1/photo-4.jpg"],
-      description: `Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.` }
+                "projects/more/render-13.jpg", "projects/more/render-14.jpg",
+                "projects/more/render-15.jpg", "projects/more/render-16.jpg",
+                "projects/more/render-17.jpg", "projects/more/render-18.jpg",
+                "projects/more/render-19.jpg", "projects/more/render-20.jpg",
+                "projects/more/render-21.jpg", "projects/more/render-22.jpg",
+                "projects/more/render-23.jpg", "projects/more/render-24.jpg",
+                "projects/more/render-25.jpg", "projects/more/render-26.jpg",
+                "projects/more/render-27.jpg", "projects/more/render-28.jpg",
+                "projects/more/render-29.jpg", "projects/more/render-30.jpg",
+                "projects/more/render-31.jpg", "projects/more/render-32.jpg",
+                "projects/more/render-33.jpg"],
+      description: `По каждому из этих домов мы могли бы сделать отдельную страницу с «до» и «после». Но оставляем карусель — чтобы не утомлять вас рассказами.` }
 ];
 
 let currentProjectIndex = 0;
