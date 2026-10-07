@@ -94,11 +94,45 @@
     const labelAfter = document.getElementById('pfLabelAfter');
     let current = -1;
 
+    // Сколько пропорции кадра могут отличаться от окна, чтобы обрезка была незаметной
+    const CROP_TOLERANCE = 0.06;
+    const layerSources = new Map();          // слой → адрес картинки, чтобы пересчитать при смене размера окна
+
+    function fitLayer(el, src, fit) {
+        if (fit === 'contain' || fit === 'cover') {       // если задано вручную — слушаемся
+            el.classList.toggle('pf-contain', fit === 'contain');
+            return;
+        }
+        const box = compare.getBoundingClientRect();
+        if (!box.width || !box.height) return;
+        const img = new Image();
+        img.onload = () => {
+            if (layerSources.get(el) !== src) return;      // пока грузилось, открыли другой проект
+            const imgRatio = img.naturalWidth / img.naturalHeight;
+            const boxRatio = box.width / box.height;
+            const off = Math.abs(imgRatio - boxRatio) / boxRatio;
+            el.classList.toggle('pf-contain', off > CROP_TOLERANCE);
+        };
+        img.src = src;
+    }
+
     function setLayer(el, src, fit, pos) {
         el.style.setProperty('--img', `url('${src}')`);
         el.style.setProperty('--pos', pos || 'center');
-        el.classList.toggle('pf-contain', fit === 'contain');
+        el.classList.remove('pf-contain');
+        layerSources.set(el, src);
+        el.dataset.fit = fit || '';
+        fitLayer(el, src, fit);
     }
+
+    // окно поменяло пропорции (поворот телефона, другое окно) — пересчитываем обрезку
+    let fitTimer = null;
+    window.addEventListener('resize', () => {
+        clearTimeout(fitTimer);
+        fitTimer = setTimeout(() => {
+            layerSources.forEach((src, el) => fitLayer(el, src, el.dataset.fit || ''));
+        }, 200);
+    });
 
     function setSplit(value) {
         compare.style.setProperty('--split', value + '%');
@@ -218,7 +252,11 @@
             `<span>Следующий проект</span><strong>${projectsData[nextIndex].title || ''} &rarr;</strong>`;
 
         caseEl.hidden = false;
-        requestAnimationFrame(() => caseEl.classList.add('open'));
+        requestAnimationFrame(() => {
+            caseEl.classList.add('open');
+            // размеры окна сравнения известны только теперь — пересчитываем обрезку
+            layerSources.forEach((src, el) => fitLayer(el, src, el.dataset.fit || ''));
+        });
         stripResumeAt = 0;
         if (p.galleryOnly) startStrip(); else stopStrip();
         document.body.style.overflow = 'hidden';
