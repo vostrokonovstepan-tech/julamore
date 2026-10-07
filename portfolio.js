@@ -109,6 +109,38 @@
         return value && value !== '—' ? `<div><dt>${label}</dt><dd>${value}</dd></div>` : '';
     }
 
+    /* ---------- лента подборки листается сама ---------- */
+    const stripEl = document.getElementById('pfCaseGallery');
+    const STRIP_PAUSE = 5000;          // пауза после того, как посетитель сам листнул
+    const STRIP_EVERY = 3200;          // как часто сдвигать ленту
+    let stripTimer = null, stripHover = false, stripResumeAt = 0;
+
+    if (stripEl) {
+        stripEl.addEventListener('mouseenter', () => { stripHover = true; });
+        stripEl.addEventListener('mouseleave', () => { stripHover = false; });
+        ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(ev =>
+            stripEl.addEventListener(ev, () => { stripResumeAt = Date.now() + STRIP_PAUSE; }, { passive: true }));
+    }
+
+    function stopStrip() {
+        clearInterval(stripTimer);
+        stripTimer = null;
+    }
+
+    function startStrip() {
+        stopStrip();
+        if (!stripEl || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        stripTimer = setInterval(() => {
+            if (stripHover || Date.now() < stripResumeAt) return;
+            if (stripEl.scrollWidth <= stripEl.clientWidth + 8) return;
+            const tile = stripEl.querySelector('.pf-tile');
+            const stepBy = tile ? tile.getBoundingClientRect().width + 14 : 300;
+            const atEnd = stripEl.scrollLeft + stripEl.clientWidth >= stripEl.scrollWidth - 8;
+            // в конце возвращаемся к началу сразу: плавная перемотка всей ленты была бы слишком долгой
+            stripEl.scrollTo({ left: atEnd ? 0 : stripEl.scrollLeft + stepBy, behavior: atEnd ? 'auto' : 'smooth' });
+        }, STRIP_EVERY);
+    }
+
     function openCase(index) {
         const p = projectsData[index];
         if (!p) return;
@@ -164,6 +196,7 @@
 
         const gallery = document.getElementById('pfCaseGallery');
         gallery.classList.toggle('pf-gallery-strip', !!p.galleryOnly);   // подборка листается лентой
+        gallery.scrollLeft = 0;
         gallery.replaceChildren(...p.gallery.map((src, i) => {
             const tile = document.createElement('button');
             tile.className = 'pf-tile';
@@ -186,6 +219,8 @@
 
         caseEl.hidden = false;
         requestAnimationFrame(() => caseEl.classList.add('open'));
+        stripResumeAt = 0;
+        if (p.galleryOnly) startStrip(); else stopStrip();
         document.body.style.overflow = 'hidden';
         scrollEl.scrollTop = 0;
         history.replaceState(null, '', '#case-' + (index + 1));
@@ -203,6 +238,7 @@
         history.replaceState(null, '', location.pathname + location.search);
         setTimeout(() => { if (!caseEl.classList.contains('open')) caseEl.hidden = true; }, 350);
         caseEl.querySelectorAll('video').forEach(v => v.pause());
+        stopStrip();
     }
 
     document.getElementById('pfCaseClose').addEventListener('click', closeCase);
