@@ -244,11 +244,11 @@ async function handleLead(req, res) {
     }
 
     const token = process.env.TELEGRAM_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const chatIds = (process.env.TELEGRAM_CHAT_ID || '').split(',').map(s => s.trim()).filter(Boolean);
     const mailHost = process.env.MAIL_HOST;
     const mailTo = (process.env.MAIL_TO || '').split(',').map(s => s.trim()).filter(Boolean);
     const mailReady = mailHost && process.env.MAIL_USER && process.env.MAIL_PASS && mailTo.length;
-    if (!mailReady && !(token && chatId)) {
+    if (!mailReady && !(token && chatIds.length)) {
         console.error('Ни почта (MAIL_*), ни Telegram (TELEGRAM_*) не настроены');
         return sendJson(res, 500, { error: 'Server is not configured' });
     }
@@ -287,7 +287,7 @@ async function handleLead(req, res) {
         }
     }
 
-    if (!token || !chatId) {
+    if (!token || !chatIds.length) {
         return mailSent
             ? sendJson(res, 200, { ok: true })
             : sendJson(res, 502, { error: 'Failed to send lead' });
@@ -317,26 +317,33 @@ async function handleLead(req, res) {
                 : 'Кто оставил — смотрите на странице заявок /leads.html',
         ].join('\n');
 
-    // the connection to Telegram can drop now and then — try up to 3 times
-    let lastError;
-    for (let attempt = 1; attempt <= 3; attempt++) {
-        try {
-            const api = process.env.TELEGRAM_API || 'https://api.telegram.org';
-            const tg = await fetch(`${api}/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' }),
-                signal: AbortSignal.timeout(8000),
-            });
-            if (tg.ok) return sendJson(res, 200, { ok: true });
-            lastError = new Error(`Telegram answered ${tg.status}: ${await tg.text()}`);
-            if (tg.status < 500 && tg.status !== 429) break;   // wrong token / chat — retrying won't help
-        } catch (err) {
-            lastError = err;
+    // связь с Telegram иногда рвётся — на каждый чат до трёх попыток
+    async function sendToChat(chat) {
+        let lastError;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                const api = process.env.TELEGRAM_API || 'https://api.telegram.org';
+                const tg = await fetch(`${api}/bot${token}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chat, text, parse_mode: 'HTML' }),
+                    signal: AbortSignal.timeout(8000),
+                });
+                if (tg.ok) return true;
+                lastError = new Error(`Telegram ответил ${tg.status}: ${await tg.text()}`);
+                if (tg.status < 500 && tg.status !== 429) break;   // неверный токен или чат — повтор не поможет
+            } catch (err) {
+                lastError = err;
+            }
+            await new Promise(r => setTimeout(r, 700 * attempt));
         }
-        await new Promise(r => setTimeout(r, 700 * attempt));
+        console.error(`Не отправилось в чат ${chat}:`, lastError?.cause?.code || lastError?.message);
+        return false;
     }
-    console.error('Failed to send lead:', lastError?.cause?.code || lastError?.message);
+
+    // шлём во все чаты сразу; заявка считается доставленной, если дошла хотя бы в один
+    const results = await Promise.all(chatIds.map(sendToChat));
+    if (results.some(Boolean)) return sendJson(res, 200, { ok: true });
     if (mailSent) return sendJson(res, 200, { ok: true });   // письмо дошло — заявка не потеряна
     sendJson(res, 502, { error: 'Failed to send lead' });
 }
@@ -388,9 +395,11 @@ http.createServer((req, res) => {
     res.writeHead(404); res.end('Not found');
 }).listen(PORT, HOST, () => {
     console.log(`Julamore server on http://${HOST}:${PORT}${SERVE_STATIC ? ' (serving the site too)' : ''}`);
-    const tg = process.env.TELEGRAM_TOKEN && process.env.TELEGRAM_CHAT_ID;
+    const tgChats = (process.env.TELEGRAM_CHAT_ID || '').split(',').map(s => s.trim()).filter(Boolean);
+    const tg = process.env.TELEGRAM_TOKEN && tgChats.length;
     const mail = process.env.MAIL_HOST && process.env.MAIL_USER && process.env.MAIL_PASS && process.env.MAIL_TO;
-    const tgMode = process.env.TELEGRAM_FULL_TEXT === '1' ? 'включён, полный текст заявки' : 'включён, только уведомление без данных';
+    const tgMode = (process.env.TELEGRAM_FULL_TEXT === '1' ? 'включён, полный текст заявки' : 'включён, только уведомление без данных')
+        + `, чатов: ${tgChats.length}`;
     console.log(`Заявки: почта — ${mail ? 'включена' : 'выключена'}, Telegram — ${tg ? tgMode : 'выключен'}`);
     if (!tg && !mail) console.warn('Внимание: ни один канал не настроен — заявки отправляться не будут.');
     console.log(`Страница заявок /leads.html — ${process.env.ADMIN_PASSWORD ? 'включена' : 'выключена (нет ADMIN_PASSWORD)'}`);
