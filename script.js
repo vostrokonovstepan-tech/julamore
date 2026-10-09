@@ -410,7 +410,8 @@ const projectsData = [
       description: `Реконструкция жилого дома: каким он был — и каким стал.` },
     { title: "Дом в фальцевом фасаде",
       area: "—", dimensions: "—", location: "—", date: "—",
-      imgBefore: "projects/rekon-3/stage-1.jpg", imgAfter: "projects/rekon-3/stage-2.jpg",
+      imgBefore: "projects/rekon-3/proekt-1.jpg", imgAfter: "projects/rekon-3/stage-2.jpg",
+      fitBefore: "contain",
       gallery: ["projects/rekon-3/stage-1.jpg", "projects/rekon-3/stage-2.jpg",
                 "projects/rekon-3/stage-3.jpg", "projects/rekon-3/stage-4.jpg"],
       description: `Работа на объекте: кирпичные стены и стропильная система — и тот же дом уже в фальцевом фасаде.
@@ -454,7 +455,7 @@ const projectsData = [
       category: "other", noTags: true, galleryOnly: true,
       area: "—", dimensions: "—", location: "—", date: "—",
       imgBefore: "projects/more/render-34.jpg", imgAfter: "projects/more/render-34.jpg",
-      gallery: ["projects/more/render-41.jpg", "projects/more/render-42.jpg", "projects/more/render-34.jpg", "projects/more/render-35.jpg", "projects/more/render-36.jpg", "projects/more/render-37.jpg", "projects/more/render-38.jpg", "projects/more/render-39.jpg", "projects/more/render-40.jpg",
+      gallery: ["projects/more/render-41.jpg", "projects/more/render-34.jpg", "projects/more/render-35.jpg", "projects/more/render-36.jpg", "projects/more/render-37.jpg", "projects/more/render-38.jpg", "projects/more/render-39.jpg", "projects/more/render-40.jpg",
                 "projects/more/render-01.jpg", "projects/more/render-02.jpg",
                 "projects/more/render-03.jpg", "projects/more/render-04.jpg",
                 "projects/more/render-05.jpg", "projects/more/render-06.jpg", "projects/more/render-08.jpg",
