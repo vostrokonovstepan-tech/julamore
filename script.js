@@ -389,13 +389,15 @@ const projectsData = [
 
     { title: "Дом с авторским надзором",
       area: "—", dimensions: "—", location: "ул. Вербная, Нижний Новгород", date: "—",
-      imgBefore: "projects/verbnaya/render-1.jpg", imgAfter: "projects/verbnaya/photo-1.jpg",
+      imgBefore: "projects/verbnaya/render-1.jpg", imgAfter: "projects/verbnaya/photo-2.jpg",
       gallery: ["projects/verbnaya/render-1.jpg", "projects/verbnaya/render-2.jpg",
                 "projects/verbnaya/render-3.jpg", "projects/verbnaya/plan-1.jpg",
                 "projects/verbnaya/stroyka-1.jpg", "projects/verbnaya/stroyka-2.jpg",
                 "projects/verbnaya/stroyka-3.jpg", "projects/verbnaya/stroyka-4.jpg",
-                "projects/verbnaya/photo-1.jpg"],
-      description: `Начали мы с фундамента и на данный момент завершаем… Нет, начали с проекта, потом вышли на стройплощадку, залили фундамент и не успели заметить, как в данный момент идут крайние работы по фасаду.` },
+                "projects/verbnaya/photo-2.jpg"],
+      description: `Начали мы с фундамента и на данный момент завершаем… Нет, начали с проекта, потом вышли на стройплощадку, залили фундамент и не успели заметить, как в данный момент идут крайние работы по фасаду.
+
+Итоговое фото впереди: стройка в разгаре.` },
 
     /* ---------- Реконструкции ---------- */
     { title: "Вторая жизнь дома с башней",
@@ -452,7 +454,7 @@ const projectsData = [
       category: "other", noTags: true, galleryOnly: true,
       area: "—", dimensions: "—", location: "—", date: "—",
       imgBefore: "projects/more/render-34.jpg", imgAfter: "projects/more/render-34.jpg",
-      gallery: ["projects/more/render-34.jpg", "projects/more/render-35.jpg", "projects/more/render-36.jpg", "projects/more/render-37.jpg", "projects/more/render-38.jpg", "projects/more/render-39.jpg", "projects/more/render-40.jpg",
+      gallery: ["projects/more/render-41.jpg", "projects/more/render-42.jpg", "projects/more/render-34.jpg", "projects/more/render-35.jpg", "projects/more/render-36.jpg", "projects/more/render-37.jpg", "projects/more/render-38.jpg", "projects/more/render-39.jpg", "projects/more/render-40.jpg",
                 "projects/more/render-01.jpg", "projects/more/render-02.jpg",
                 "projects/more/render-03.jpg", "projects/more/render-04.jpg",
                 "projects/more/render-05.jpg", "projects/more/render-06.jpg", "projects/more/render-08.jpg",
