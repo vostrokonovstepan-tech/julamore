@@ -116,6 +116,12 @@
         img.src = src;
     }
 
+    const TRANS = {'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y',
+        'к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h',
+        'ц':'c','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'};
+    const slugOf = title => [...title.toLowerCase()].map(c => TRANS[c] ?? c).join('')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-+/g, '-').slice(0, 60);
+
     function setLayer(el, src, fit, pos) {
         el.style.setProperty('--img', `url('${src}')`);
         el.style.setProperty('--pos', pos || 'center');
@@ -243,6 +249,10 @@
             tile.addEventListener('click', () => openLightbox(p.gallery, i));
             return tile;
         }));
+
+        // ссылка на отдельную страницу проекта — её же индексируют поисковики
+        const pageLink = document.getElementById('pfCasePage');
+        if (pageLink) pageLink.href = 'proekt-' + slugOf(p.title) + '.html';
 
         const order = visible.length ? visible : projectsData.map((_, i) => i);
         const pos = order.indexOf(index);

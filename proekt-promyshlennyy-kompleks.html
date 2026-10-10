@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наши проекты — Julamore</title>
-    <meta name="description" content="Реализованные проекты студии Julamore — сравнение до/после постройки, площадь, габариты и фотографии каждого дома.">
-    <meta name="robots" content="noindex, follow">
+    <title>Промышленный комплекс — проект Julamore</title>
+    <meta name="description" content="Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.">
     <meta name="theme-color" content="#E29303">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Наши проекты — Julamore">
-    <meta property="og:description" content="Реализованные проекты студии Julamore — сравнение до/после постройки, площадь, габариты и фотографии каждого дома.">
-    <meta property="og:image" content="https://julamore.ru/logo-full.png">
+    <meta property="og:title" content="Промышленный комплекс — Julamore">
+    <meta property="og:description" content="Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.">
+    <meta property="og:image" content="https://julamore.ru/projects/prom-1/photo-2.jpg">
+    <meta property="og:url" content="https://julamore.ru/proekt-promyshlennyy-kompleks.html">
+    <meta property="og:site_name" content="Julamore">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="canonical" href="https://julamore.ru/proekt-promyshlennyy-kompleks.html">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
@@ -18,20 +21,51 @@
     <link rel="stylesheet" href="style.css?v=68">
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Julamore",
-      "alternateName": "Джуламор — дом мечты",
-      "description": "Архитектурная студия: проектирование частных домов, реконструкция, промышленные здания.",
-      "url": "https://julamore.ru/",
-      "logo": "https://julamore.ru/logo-full.png",
-      "email": "juliya_work@bk.ru",
-      "legalName": "ИП Шалимова Юлия Геннадьевна",
-      "taxID": "525629482153",
-      "founder": { "@type": "Person", "name": "Шалимова Юлия Геннадьевна" },
-      "foundingDate": "2015",
-      "areaServed": "RU"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://julamore.ru/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ваши мечты",
+          "item": "https://julamore.ru/portfolio.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Промышленный комплекс",
+          "item": "https://julamore.ru/proekt-promyshlennyy-kompleks.html"
+        }
+      ]
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Промышленный комплекс",
+      "description": "Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.",
+      "url": "https://julamore.ru/proekt-promyshlennyy-kompleks.html",
+      "image": [
+        "https://julamore.ru/projects/prom-1/photo-3.jpg",
+        "https://julamore.ru/projects/prom-1/photo-2.jpg",
+        "https://julamore.ru/projects/prom-1/photo-1.jpg",
+        "https://julamore.ru/projects/prom-1/photo-4.jpg"
+      ],
+      "genre": "Промышленный объект",
+      "author": {
+        "@type": "Organization",
+        "name": "Julamore",
+        "url": "https://julamore.ru/"
+      }
     }
+  ]
+}
     </script>
     <script>
       // Сайт на GitHub Pages работает без сервера: форма и страница заявок
@@ -42,11 +76,10 @@
     </script>
 </head>
 <body>
-
     <header class="site-header">
         <a href="index.html" class="brand-btn">Julamore</a>
         <nav class="nav-menu" id="navMenu">
-            <a href="portfolio.html" class="active">Ваши мечты</a>
+            <a href="portfolio.html">Ваши мечты</a>
             <a href="about.html">Знакомство</a>
             <a href="faq.html">Интересующие детали</a>
             <a href="#" id="openModalHeader">Первый шаг</a>
@@ -56,81 +89,40 @@
         </button>
     </header>
 
-    <main class="projects-page">
-        <section class="split-slider-wrapper">
+    <main class="page-section proj">
+        <nav class="proj-crumbs" aria-label="Хлебные крошки">
+            <a href="index.html">Главная</a> <span>/</span>
+            <a href="portfolio.html">Ваши мечты</a> <span>/</span>
+            <span>Промышленный комплекс</span>
+        </nav>
 
-            <!-- shown only while the projects list in script.js is empty -->
-            <div class="projects-empty">
-                <span class="projects-empty-eyebrow">Ваши мечты</span>
-                <p class="projects-empty-title">Скоро здесь появятся воплощённые мечты</p>
-                <p class="projects-empty-text">Мы бережно собираем истории домов, которые спроектировали для наших клиентов.</p>
-                <button class="btn btn-orange" data-open-modal>Первый шаг</button>
-            </div>
+        <p class="proj-cat">Промышленный объект</p>
+        <h1 class="proj-title">Промышленный комплекс</h1>
 
-            <div class="slider-dots-overlay">
-                <div class="projects-tabs" role="tablist">
-                    <button class="projects-tab active" role="tab" aria-selected="true" data-category="new">Новые дома</button>
-                    <button class="projects-tab" role="tab" aria-selected="false" data-category="reconstruction">Реконструкции</button>
-                    <button class="projects-tab" role="tab" aria-selected="false" data-category="industrial">Промышленные</button>
-                </div>
-                <div class="pagination-dots" id="dotsContainer"></div>
-            </div>
+        <div class="proj-pair">
+            <figure><img src="projects/prom-1/photo-3.jpg" alt="Промышленный объект — Промышленный комплекс — проект" loading="lazy"><figcaption>Проект</figcaption></figure>
+            <figure><img src="projects/prom-1/photo-2.jpg" alt="Промышленный объект — Промышленный комплекс — реализация" loading="lazy"><figcaption>Реализация</figcaption></figure>
+        </div>
 
-            <!-- shown while the chosen collection has no projects yet -->
-            <div class="category-empty">
-                <p class="projects-empty-title">Реконструкции скоро появятся</p>
-                <p class="projects-empty-text">Здесь будут дома, которым мы подарили вторую жизнь: каким был дом — и каким он стал.</p>
-            </div>
+        
 
-            <button class="slider-arrow arrow-left" id="prevBtn" aria-label="Предыдущий проект">&#8249;</button>
-            <button class="slider-arrow arrow-right" id="nextBtn" aria-label="Следующий проект">&#8250;</button>
+        <div class="proj-text">
+            <p>Мы проектируем не только частные дома — промышленными зданиями мы тоже занимаемся.</p>
+        </div>
 
-            <span class="split-tag tag-before">До</span>
-            <span class="split-tag tag-after">После</span>
+        
 
-            <div class="split-side side-before" id="photoBefore">
-                <div class="photo-bg" id="bgBefore"></div>
-            </div>
+        <div class="proj-gallery">
+                <a class="proj-tile" href="projects/prom-1/photo-3.jpg" target="_blank" rel="noopener"><img src="projects/prom-1/photo-3.jpg" alt="Промышленный объект — Промышленный комплекс, фото 1" loading="lazy"></a>
+                <a class="proj-tile" href="projects/prom-1/photo-2.jpg" target="_blank" rel="noopener"><img src="projects/prom-1/photo-2.jpg" alt="Промышленный объект — Промышленный комплекс, фото 2" loading="lazy"></a>
+                <a class="proj-tile" href="projects/prom-1/photo-1.jpg" target="_blank" rel="noopener"><img src="projects/prom-1/photo-1.jpg" alt="Промышленный объект — Промышленный комплекс, фото 3" loading="lazy"></a>
+                <a class="proj-tile" href="projects/prom-1/photo-4.jpg" target="_blank" rel="noopener"><img src="projects/prom-1/photo-4.jpg" alt="Промышленный объект — Промышленный комплекс, фото 4" loading="lazy"></a>
+        </div>
 
-            <div class="split-side side-after" id="photoAfter">
-                <div class="photo-bg" id="bgAfter"></div>
-            </div>
-
-            <footer class="project-details-overlay">
-                <div class="detail-blur-box">
-                    <span class="detail-title">площадь</span>
-                    <span class="detail-value" id="valArea">0 кв.м</span>
-                </div>
-                <div class="detail-blur-box">
-                    <span class="detail-title">габариты</span>
-                    <span class="detail-value" id="valDimensions">0 х 0 м</span>
-                </div>
-                <div class="detail-blur-box">
-                    <span class="detail-title">место</span>
-                    <span class="detail-value" id="valLocation">Город</span>
-                </div>
-                <div class="detail-blur-box">
-                    <span class="detail-title">дата</span>
-                    <span class="detail-value" id="valDate">00.00.0000</span>
-                </div>
-            </footer>
-
-            <div class="scroll-cue" aria-hidden="true"></div>
-        </section>
-
-        <section class="project-gallery-section">
-            <div class="dimension-divider fade-in-up">
-                <span class="label">Детали проекта</span>
-                <div class="tick-line"></div>
-            </div>
-
-            <div class="gallery-intro fade-in-up">
-                <span class="gallery-eyebrow">Об этом проекте</span>
-                <div class="gallery-description" id="galleryDescription"></div>
-            </div>
-
-            <div class="gallery-row" id="galleryRow"></div>
-        </section>
+        <div class="proj-nav">
+            <a class="btn btn-ghost" href="portfolio.html">← Все проекты</a>
+            <a class="btn btn-orange" href="proekt-a-chto-esche-my-delali.html">Следующий: А что ещё мы делали →</a>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -168,14 +160,14 @@
         </div>
     </footer>
 
+    <button class="floating-cta" id="openModalFloat">Первый шаг</button>
+
     <div class="lightbox-overlay" id="lightbox">
         <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">&times;</button>
         <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Предыдущее фото">&#8249;</button>
         <img class="lightbox-image" id="lightboxImage" src="" alt="Фото проекта">
         <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Следующее фото">&#8250;</button>
     </div>
-
-    <button class="floating-cta" id="openModalFloat">Первый шаг</button>
 
     <div class="modal-overlay" id="contactModal">
         <div class="modal-window">
@@ -189,15 +181,15 @@
                     </div>
                     <div class="form-group">
                         <label for="lastName">Фамилия</label>
-                        <input type="text" id="lastName" required>
+                        <input type="text" id="lastName" required placeholder="Иванов">
                     </div>
                     <div class="form-group">
                         <label for="phone">Номер телефона</label>
-                        <input type="tel" id="phone" required>
+                        <input type="tel" id="phone" required placeholder="+7 (999) 000-00-00">
                     </div>
                     <div class="form-group">
                         <label for="email">Почта</label>
-                        <input type="email" id="email" required>
+                        <input type="email" id="email" required placeholder="example@mail.ru">
                     </div>
                     <div class="form-group">
                         <label for="projectDescription">Описание проекта</label>
@@ -213,7 +205,7 @@
                         <label for="leadConsent">Я даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку моих персональных данных</a> и принимаю <a href="privacy.html" target="_blank" rel="noopener">Политику обработки персональных данных</a>.</label>
                     </div>
 
-                    <button type="submit" class="btn btn-orange" style="width: 100%;">Отправить</button>
+                    <button type="submit" class="btn btn-orange" style="width:100%;">Отправить</button>
                 </div>
 
                 <div class="form-success-message" id="successMessage" style="display: none;">

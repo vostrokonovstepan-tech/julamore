@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница не найдена — Julamore</title>
-    <meta name="description" content="Такой страницы на сайте Julamore нет.">
-    <meta name="robots" content="noindex">
+    <title>Дом, с которого началась улица — проект Julamore</title>
+    <meta name="description" content="Дом построен в деревне Скипино Нижегородской области. Заказчик пришёл с запросом построить красивый дом в местности, которая только начинала застраиваться:…">
     <meta name="theme-color" content="#E29303">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Политика обработки персональных данных — Julamore">
-    <meta property="og:description" content="Как Julamore обрабатывает персональные данные посетителей сайта.">
-    <meta property="og:image" content="https://julamore.ru/logo-full.png">
+    <meta property="og:title" content="Дом, с которого началась улица — Julamore">
+    <meta property="og:description" content="Дом построен в деревне Скипино Нижегородской области. Заказчик пришёл с запросом построить красивый дом в местности, которая только начинала застраиваться:…">
+    <meta property="og:image" content="https://julamore.ru/projects/dom-6/photo-3.jpg">
+    <meta property="og:url" content="https://julamore.ru/proekt-dom-s-kotorogo-nachalas-ulica.html">
+    <meta property="og:site_name" content="Julamore">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="canonical" href="https://julamore.ru/proekt-dom-s-kotorogo-nachalas-ulica.html">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
@@ -18,20 +21,57 @@
     <link rel="stylesheet" href="style.css?v=68">
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Julamore",
-      "alternateName": "Джуламор — дом мечты",
-      "description": "Архитектурная студия: проектирование частных домов, реконструкция, промышленные здания.",
-      "url": "https://julamore.ru/",
-      "logo": "https://julamore.ru/logo-full.png",
-      "email": "juliya_work@bk.ru",
-      "legalName": "ИП Шалимова Юлия Геннадьевна",
-      "taxID": "525629482153",
-      "founder": { "@type": "Person", "name": "Шалимова Юлия Геннадьевна" },
-      "foundingDate": "2015",
-      "areaServed": "RU"
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://julamore.ru/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Ваши мечты",
+          "item": "https://julamore.ru/portfolio.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Дом, с которого началась улица",
+          "item": "https://julamore.ru/proekt-dom-s-kotorogo-nachalas-ulica.html"
+        }
+      ]
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "Дом, с которого началась улица",
+      "description": "Дом построен в деревне Скипино Нижегородской области. Заказчик пришёл с запросом построить красивый дом в местности, которая только начинала застраиваться: вокруг — деревенька с простыми деревенскими домами. После него к нам пришли все его друзья и соседи — это ещё пять проектов на соседних участках. Благодарим за доверие всех, кто к нам приходит!",
+      "url": "https://julamore.ru/proekt-dom-s-kotorogo-nachalas-ulica.html",
+      "image": [
+        "https://julamore.ru/projects/dom-6/photo-3.jpg",
+        "https://julamore.ru/projects/dom-6/photo-2.jpg",
+        "https://julamore.ru/projects/dom-6/photo-winter.jpg",
+        "https://julamore.ru/projects/dom-6/render-1.jpg",
+        "https://julamore.ru/projects/dom-6/render-2.jpg",
+        "https://julamore.ru/projects/dom-6/render-3.jpg"
+      ],
+      "genre": "Новый дом",
+      "locationCreated": {
+        "@type": "Place",
+        "name": "Нижегородская область"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Julamore",
+        "url": "https://julamore.ru/"
+      }
     }
+  ]
+}
     </script>
     <script>
       // Сайт на GitHub Pages работает без сервера: форма и страница заявок
@@ -55,15 +95,43 @@
         </button>
     </header>
 
-    <main class="page-section error-page">
-        <span class="error-code">404</span>
-        <h1 class="error-title">Такой страницы мы не проектировали</h1>
-        <p class="error-text">Возможно, в адресе опечатка или страница переехала. Загляните в портфолио — там дома, которые мы уже построили.</p>
-        <div class="error-links">
-            <a class="btn btn-orange" href="portfolio.html">Ваши мечты</a>
-            <a class="error-link" href="index.html">На главную</a>
-            <a class="error-link" href="about.html">Знакомство</a>
-            <a class="error-link" href="faq.html">Интересующие детали</a>
+    <main class="page-section proj">
+        <nav class="proj-crumbs" aria-label="Хлебные крошки">
+            <a href="index.html">Главная</a> <span>/</span>
+            <a href="portfolio.html">Ваши мечты</a> <span>/</span>
+            <span>Дом, с которого началась улица</span>
+        </nav>
+
+        <p class="proj-cat">Новый дом, Нижегородская область</p>
+        <h1 class="proj-title">Дом, с которого началась улица</h1>
+
+        <div class="proj-pair">
+            <figure><img src="projects/dom-6/render-1.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица — проект" loading="lazy"><figcaption>Проект</figcaption></figure>
+            <figure><img src="projects/dom-6/photo-3.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица — реализация" loading="lazy"><figcaption>Реализация</figcaption></figure>
+        </div>
+
+        <dl class="proj-facts"><div><dt>Место</dt><dd>Нижегородская область</dd></div></dl>
+
+        <div class="proj-text">
+            <p>Дом построен в деревне Скипино Нижегородской области. Заказчик пришёл с запросом построить красивый дом в местности, которая только начинала застраиваться: вокруг — деревенька с простыми деревенскими домами.</p>
+            <p>После него к нам пришли все его друзья и соседи — это ещё пять проектов на соседних участках.</p>
+            <p>Благодарим за доверие всех, кто к нам приходит!</p>
+        </div>
+
+        
+
+        <div class="proj-gallery">
+                <a class="proj-tile" href="projects/dom-6/photo-3.jpg" target="_blank" rel="noopener"><img src="projects/dom-6/photo-3.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица, фото 1" loading="lazy"></a>
+                <a class="proj-tile" href="projects/dom-6/photo-2.jpg" target="_blank" rel="noopener"><img src="projects/dom-6/photo-2.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица, фото 2" loading="lazy"></a>
+                <a class="proj-tile" href="projects/dom-6/photo-winter.jpg" target="_blank" rel="noopener"><img src="projects/dom-6/photo-winter.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица, фото 3" loading="lazy"></a>
+                <a class="proj-tile" href="projects/dom-6/render-1.jpg" target="_blank" rel="noopener"><img src="projects/dom-6/render-1.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица, фото 4" loading="lazy"></a>
+                <a class="proj-tile" href="projects/dom-6/render-2.jpg" target="_blank" rel="noopener"><img src="projects/dom-6/render-2.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица, фото 5" loading="lazy"></a>
+                <a class="proj-tile" href="projects/dom-6/render-3.jpg" target="_blank" rel="noopener"><img src="projects/dom-6/render-3.jpg" alt="Новый дом, Нижегородская область — Дом, с которого началась улица, фото 6" loading="lazy"></a>
+        </div>
+
+        <div class="proj-nav">
+            <a class="btn btn-ghost" href="portfolio.html">← Все проекты</a>
+            <a class="btn btn-orange" href="proekt-dom-iz-nashego-intervyu.html">Следующий: Дом из нашего интервью →</a>
         </div>
     </main>
 
