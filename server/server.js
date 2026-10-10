@@ -327,7 +327,7 @@ async function handleLead(req, res) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: chat, text, parse_mode: 'HTML' }),
-                    signal: AbortSignal.timeout(8000),
+                    signal: AbortSignal.timeout(6000),
                 });
                 if (tg.ok) return true;
                 lastError = new Error(`Telegram ответил ${tg.status}: ${await tg.text()}`);
@@ -341,10 +341,16 @@ async function handleLead(req, res) {
         return false;
     }
 
-    // шлём во все чаты сразу; заявка считается доставленной, если дошла хотя бы в один
+    // Если письмо уже ушло, не держим посетителя: отвечаем сразу,
+    // а в Telegram дописываем в фоне (он может быть недоступен с сервера).
+    if (mailSent) {
+        Promise.all(chatIds.map(sendToChat)).catch(() => {});
+        return sendJson(res, 200, { ok: true });
+    }
+
+    // почты нет — ждём Telegram: заявка доставлена, если дошла хотя бы в один чат
     const results = await Promise.all(chatIds.map(sendToChat));
     if (results.some(Boolean)) return sendJson(res, 200, { ok: true });
-    if (mailSent) return sendJson(res, 200, { ok: true });   // письмо дошло — заявка не потеряна
     sendJson(res, 502, { error: 'Failed to send lead' });
 }
 
