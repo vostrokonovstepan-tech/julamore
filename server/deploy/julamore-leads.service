@@ -5,6 +5,9 @@ After=network.target
 
 [Service]
 WorkingDirectory=/var/www/julamore/server
+# папка для заявок создаётся до запуска: без неё systemd не пускает процесс
+ExecStartPre=+/bin/mkdir -p /var/www/julamore/server/leads
+ExecStartPre=+/bin/chown www-data:www-data /var/www/julamore/server/leads
 ExecStart=/usr/bin/node /var/www/julamore/server/server.js
 Restart=always
 RestartSec=3
@@ -20,7 +23,7 @@ ProtectHome=true
 ProtectKernelTunables=true
 ProtectControlGroups=true
 RestrictAddressFamilies=AF_INET AF_INET6
-ReadWritePaths=/var/www/julamore/server/leads
+ReadWritePaths=-/var/www/julamore/server/leads
 MemoryMax=300M
 
 [Install]
